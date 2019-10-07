@@ -1,7 +1,6 @@
-import VueRouter from 'vue-router';
-
-import routes from './routes';
 import { VueConstructor } from 'vue';
+import VueRouter from 'vue-router';
+import routes from './routes';
 
 /*
  * If not building with SSR mode, you can
@@ -9,8 +8,6 @@ import { VueConstructor } from 'vue';
  */
 
 export default function({
-  /* store,
-  ssrContext, */
   Vue
 }: {
   store: any;

@@ -63,14 +63,30 @@ Component styles:
 - [Classes](https://github.com/vuejs/vue-class-component) and [Decorators](https://github.com/kaorun343/vue-property-decorator): current most used TS solution so far, it heavily relies on Decorators which aren't still a well defined standard. Decorators proposal is having some hard times, going back and forth between T39 stages. It will still be supported in Vue3, but from what I read it won't have the core team focus anymore.
 - Object mode: good old plain object notation. Can be used with TS, but it requires a lot of typings overhead and quirks to get it right, not recommended.
 
-// TODO: I put an example object and a possible template of every style into the repo to show them off.
+// TODO: I'll put an example component and a possible template of every style into the repo to show them off.
 
 ---
 
-Missing types:
+There are some types I simply don't know where to find and which I don't know where are repeated.
+I need your help to identify and write them.
+Some are:
 
-- `quasar.config.js` could maybe be transformed into a `ts` file, adding typings both for `ctx` main parameter and `cfg` webpack extension parameter.
+- the parameter of boot files;
+- the parameter of `store/index.ts`
+- the parameter of `router/index.ts`
+- `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
+- `cfg` webpack extension parameter;
+- `ssrContext` object (as found in `router/index.ts`, `store/index.ts` and many others);
+- `store` object (as found in `router/index.ts`).
+
+I probably forgot some out.
 
 ---
 
-[Fast link](https://github.com/quasarframework/app-extension-typescript/issues) to the list of issues to look out for after adding TS support into core package.
+Fast links to issues to look out for after adding TS support into core package:
+
+- https://github.com/quasarframework/app-extension-typescript/issues/32
+- https://github.com/quasarframework/app-extension-typescript/issues/31
+- https://github.com/quasarframework/app-extension-typescript/issues/29
+- https://github.com/quasarframework/app-extension-typescript/issues/23
+- https://github.com/quasarframework/app-extension-typescript/issues/17

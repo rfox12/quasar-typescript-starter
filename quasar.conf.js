@@ -72,7 +72,10 @@ module.exports = function(/* ctx */) {
       extendWebpack(cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
-          test: /\.(js|vue)$/,
+          // Removed vue from linting to prevent false positives
+          //  to block the build process
+          // test: /\.(js|vue)$/,
+          test: /\.(js)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {

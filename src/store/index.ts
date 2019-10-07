@@ -8,13 +8,7 @@ import Vuex from 'vuex';
  * directly export the Store instantiation
  */
 
-export default function({
-  /* ssrContext, */
-  Vue
-}: {
-  ssrContext: any;
-  Vue: VueConstructor;
-}) {
+export default function({ Vue }: { ssrContext: any; Vue: VueConstructor }) {
   Vue.use(Vuex);
 
   const Store = new Vuex.Store({
