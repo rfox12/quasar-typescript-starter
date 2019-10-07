@@ -7,22 +7,34 @@
   "author": "Paolo Caleffi <p.caleffi@dreamonkey.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "@vue/composition-api": "^0.3.2",
     "axios": "^0.18.1",
     "quasar": "^1.0.0",
-    "vue-i18n": "^8.0.0"
+    "vue-class-component": "^7.1.0",
+    "vue-i18n": "^8.0.0",
+    "vue-property-decorator": "^8.2.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",
+    "@types/node": "^12.7.11",
+    "@types/tapable": "^1.0.4",
+    "@types/webpack": "^4.39.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
     "@vue/eslint-config-prettier": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
+    "eslint-config-prettier": "^6.4.0",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^5.0.0"
+    "eslint-plugin-vue": "^5.0.0",
+    "fork-ts-checker-webpack-plugin": "^1.5.0",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.6.3"
   },
   "engines": {
     "node": ">= 8.9.0",

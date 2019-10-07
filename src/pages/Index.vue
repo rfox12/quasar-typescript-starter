@@ -4,8 +4,8 @@
   </q-page>
 </template>
 
-<script>
+<script script="ts">
 export default {
-  name: "PageIndex"
+  name: 'PageIndex'
 };
 </script>

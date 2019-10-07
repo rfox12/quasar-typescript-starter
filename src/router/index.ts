@@ -1,16 +1,24 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import VueRouter from 'vue-router';
 
-import routes from "./routes";
-
-Vue.use(VueRouter);
+import routes from './routes';
+import { VueConstructor } from 'vue';
 
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function({
+  /* store,
+  ssrContext, */
+  Vue
+}: {
+  store: any;
+  ssrContext: any;
+  Vue: VueConstructor;
+}) {
+  Vue.use(VueRouter);
+
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
