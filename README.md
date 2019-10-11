@@ -67,11 +67,11 @@ Component styles:
 
 ---
 
-There are some types I simply don't know where to find and which I don't know where are repeated.
+There are some types I simply don't know or am not sure about and which I don't know where are repeated.
 I need your help to identify and write them.
 Some are:
 
-- the parameter of boot files;
+- parameters of boot files;
 - the parameter of `store/index.ts`
 - the parameter of `router/index.ts`
 - `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
@@ -80,6 +80,8 @@ Some are:
 - `store` object (as found in `router/index.ts`).
 
 I probably forgot some out.
+
+It's probably better to wrap boot functions into a wrapper which automatically applies typings, after we fully specified them. Something like `createBootLoader(ctx: ???[, ...others parameters])`.
 
 ---
 

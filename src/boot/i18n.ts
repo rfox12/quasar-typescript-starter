@@ -1,5 +1,5 @@
 import messages from 'src/i18n';
-import Vue, { VueConstructor } from 'vue';
+import VueType, { VueConstructor, ComponentOptions } from 'vue';
 import VueI18n from 'vue-i18n';
 
 declare module 'vue/types/vue' {
@@ -8,7 +8,13 @@ declare module 'vue/types/vue' {
   }
 }
 
-export default ({ app, Vue }: { app: Vue; Vue: VueConstructor }) => {
+export default ({
+  app,
+  Vue
+}: {
+  app: ComponentOptions<VueType>;
+  Vue: VueConstructor;
+}) => {
   Vue.use(VueI18n);
 
   // Set i18n instance on app
