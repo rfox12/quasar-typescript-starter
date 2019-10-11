@@ -67,11 +67,19 @@ Component styles:
 
 ---
 
+It's probably better to wrap boot functions into a wrapper which automatically applies typings, after we fully specified them. Something like `createBootLoader(ctx: ???[, ...others parameters])`.
+
+I also didn't understand if placing `Vue.use(...)` and static declarations outside of the function is a good thing or not.
+For consistency I'd keep everything inside the function.
+Also, if there are no performance issues, I'd always use `Vue` instance provided via parameter to install plugins as this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
+
+---
+
 There are some types I simply don't know or am not sure about and which I don't know where are repeated.
 I need your help to identify and write them.
 Some are:
 
-- parameters of boot files;
+- parameters of boot files ([reference](https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file));
 - the parameter of `store/index.ts`
 - the parameter of `router/index.ts`
 - `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
@@ -80,8 +88,6 @@ Some are:
 - `store` object (as found in `router/index.ts`).
 
 I probably forgot some out.
-
-It's probably better to wrap boot functions into a wrapper which automatically applies typings, after we fully specified them. Something like `createBootLoader(ctx: ???[, ...others parameters])`.
 
 ---
 
