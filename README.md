@@ -29,6 +29,7 @@ Into `tsconfig.json`:
 - `"experimentalDecorators": true` is needed only if using `vue-class-component` component syntax.
 - `"resolveJsonModule": true` is needed only if importing JSON files into TS ones.
 - `"esModuleInterop": true` is needed to better manage non-TS libraries.
+- `"types": [ "quasar" ]` is needed because "the actual import of the Quasar components is done in generated code that for some reason the VS Code is not picking up on consistently (it may be b/c that code is generated as JS not TS)" (cit Kerry on Discord, [reference](https://github.com/quasarframework/app-extension-typescript/pull/39)).
 
 ---
 
