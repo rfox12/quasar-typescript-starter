@@ -10,16 +10,16 @@ Current setup is meant to work with normal, PWA and Electron modes and has not b
 ---
 
 ESLint has been setup with Prettier enabled.
-Everything should work with ESLint 6 too (I'm using it in a project), but default installed version is < 6 so I left it untouched.
+Everything should work with ESLint 6 too (I'm using it in a project of my company without problems), but default installed version is < 6 so I left it untouched.
 See [here](https://github.com/quasarframework/app-extension-typescript/blob/dev/extension/src/templates/noprettier/_eslintrc.js) for Prettier-free version.
 
-Note that there are still some problems with `@typescript-eslint` and Vue linting. I documented them [here](https://github.com/quasarframework/app-extension-typescript/issues/23#issuecomment-522530591), but they need work by upstream packages.
-If you have some contacts with Vue core team, it could be a good thing to bring their focus on these problems, because to workaround it we are forced to move into a DFC (Double File Component) instead of a SFC and disabling linting for `.vue` files into webpack process.
+Problems with `@typescript-eslint` and Vue files linting [have been solved](https://github.com/quasarframework/app-extension-typescript/issues/23#issuecomment-544956269).
+DFC (Double File Component) fashion, instead of SFC, is still needed to have component intellisense into unit tests.
 
 Into `.eslintrc.js`:
 
 - `'vue/component-name-in-template-casing': ['error', 'kebab-case']` enforces kebab-case, but it should probably be defined based on user preferences, given the recent Quasar addition which allows to choose components casing into templates;
-- `@typescript-eslint/explicit-function-return-type` rule is turned off because I personally think that rule is too restrictive and verbose, but it has its benefits and should probably be left enabled and check what the community prefer (maybe leave it, but commented and with an explanation;)
+- `@typescript-eslint/explicit-function-return-type` rule is turned off because I personally think that rule is too restrictive and verbose, but it has its benefits and should probably be left enabled and check what the community prefer (maybe leaving it, but commented and with an explanation).
 
 ---
 
@@ -27,7 +27,7 @@ Into `tsconfig.json`:
 
 - `"noEmit": true` is needed to address [this problem](https://github.com/quasarframework/app-extension-typescript/issues/36). It will work also by adding `"outDir": "./dist"` and excluding `dist` folder. Explanations can be found via links inside the issue.
 - `"experimentalDecorators": true` is needed only if using `vue-class-component` component syntax.
-- `"resolveJsonModule": true` is needed only if importing JSON files into TS ones.
+- `"resolveJsonModule": true` is needed only if importing JSON files into TS code.
 - `"esModuleInterop": true` is needed to better manage non-TS libraries.
 - `"types": [ "quasar" ]` is needed because "the actual import of the Quasar components is done in generated code that for some reason the VS Code is not picking up on consistently (it may be b/c that code is generated as JS not TS)" (cit Kerry on Discord, [reference](https://github.com/quasarframework/app-extension-typescript/pull/39)).
 
@@ -45,8 +45,15 @@ Into `quasar.config.json`:
 
 ---
 
-`quasar-shims` is helpful to get better typings for `QuasarPlugin`, but all files inside there are a pain in the ass to maintain, being manually derived from JSON files used.
-Given that options they types are used rarely (only in unit-tests in my experience) you can safely avoid to add them and just leave the `any` in the current interface, if there is no way to derive them automatically.
+All definitions inside `quasar-shims` are types which need to be added into core typings.
+Some of those files are helpful but a pain in the ass to maintain, because manually derived from JSON files (see `icon-set.ts` and `lang.ts`).
+It would be easier if JSON files could be converted to be `.ts` files, in which case we could rely on TS inference and declaration merging to some extent to get automatic typings.
+
+Some of types are rarely used (only when unit testing in my experience) and you can safely avoid to add them if keeping their types in sync is too troublesome, leaving `any` if there is no way to derive them automatically.
+
+This principle works the same with components of course: Quasar components use render functions instead of SFC, so switching to native TS support using `.ts` files is relatively easy and removes the tooling process to manually sync typings.
+
+It should be noted that, as of today, [it has been stated](https://twitter.com/Naisstep/status/1185232738602893316) by the core team that in Vue3 template-based components will be _faster_ than render-function-based components most of the times.
 
 ---
 
@@ -55,14 +62,14 @@ This includes boot files, i18n files, vuex files, new components/pages/layouts, 
 
 ---
 
-New components should be generated based a user chosen default component style. Component with different styles can work together without problems AFAIK, but some requires particular libraries to be installed. Prompting the user to chose which one he wants could be an idea, adding all of them altogether another one.
+New components should be generated based on user chosen default component style. Component with different styles can work together without problems AFAIK, but some requires particular libraries to be installed. Prompting the user to chose which one he wants could be an idea, adding all of them altogether another one.
 The component style could also be defined via an option on `quasar new component` command, like `--style=<composition|class|object>`
 
 Component styles:
 
-- [Composition API](https://github.com/vuejs/composition-api): currently available as a plugin to Vue2, it will be the official way to have TS support. It's currently in `0.x` stage, pretty stable but still fails on some edge cases. I've been using it for some time and helping pin-point some edge cases. When Vue3 will be released, it will become the new standard, it will be enbedded into the core and the library won't be needed anymore.
+- [Composition API](https://github.com/vuejs/composition-api): currently available as a plugin to Vue2, it will be the official way to have TS support. It's currently in `0.x` stage. I've been using it for some time and helping pin-point some edge cases where it still fails, but overall is pretty stable. When Vue3 will be released, it will become the new standard, it will be enbedded into the core and the library won't be needed anymore.
 - [Classes](https://github.com/vuejs/vue-class-component) and [Decorators](https://github.com/kaorun343/vue-property-decorator): current most used TS solution so far, it heavily relies on Decorators which aren't still a well defined standard. Decorators proposal is having some hard times, going back and forth between T39 stages. It will still be supported in Vue3, but from what I read it won't have the core team focus anymore.
-- Object mode: good old plain object notation. Can be used with TS, but it requires a lot of typings overhead and quirks to get it right, not recommended.
+- Object syntax: good old plain object notation. Can be used with TS, but it requires a lot of typings overhead and quirks to get it right, not recommended.
 
 // TODO: I'll put an example component and a possible template of every style into the repo to show them off.
 
@@ -70,9 +77,9 @@ Component styles:
 
 It's probably better to wrap boot functions into a wrapper which automatically applies typings, after we fully specified them. Something like `createBootLoader(ctx: ???[, ...others parameters])`.
 
-I also didn't understand if placing `Vue.use(...)` and static declarations outside of the function is a good thing or not.
+I also don't understand if placing `Vue.use(...)` and static declarations outside boot function is a good thing or not.
 For consistency I'd keep everything inside the function.
-Also, if there are no performance issues, I'd always use `Vue` instance provided via parameter to install plugins as this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
+Also, if there are no performance issues, I'd always use `Vue` instance provided as parameter to install plugins as this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
 
 ---
 
