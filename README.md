@@ -75,11 +75,14 @@ Component styles:
 
 ---
 
-It's probably better to wrap boot functions into a wrapper which automatically applies typings, after we fully specified them. Something like `createBootLoader(ctx: ???[, ...others parameters])`.
+Boot file should return code wrapped into a callback function given as parameter of `boot(...)` function (actual name isn't important, can be changed) to get parameter typings, much like when defining a component for TS you are required to wrap it into a `Vue.extend(...)` or [`createComponent(...)`](https://github.com/vuejs/composition-api/blob/bb1e0309ae943bf92ac92fab670d63b9e288e8f3/src/component/component.ts#L73-L95).
+`boot(...)` won't actually do anything and just return the provided callback. It should be added to Quasar helpers to allow `import { boot } from 'quasar`, while right now I'm forced to do `import { boot } from 'src/quasar-shims/boot'`.
+Note that it's return signature is `void | Promise<void>` to support async boot files: in those cases `async` should be used like `export default boot(async () => {...})`.
 
-I also don't understand if placing `Vue.use(...)` and static declarations outside boot function is a good thing or not.
-For consistency I'd keep everything inside the function.
-Also, if there are no performance issues, I'd always use `Vue` instance provided as parameter to install plugins as this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
+`app` property on `BootFileParams` should be of type `ComponentOptions<Vue>`, not of type `Vue` ([reference](https://discordapp.com/channels/415874313728688138/596276596319453207/632218154445176852)).
+
+Placing `Vue.use(...)` and static declarations outside boot function seems pretty unconstintent to me, so I moved everything inside the function.
+Also, unless there are performance issues, I'd always install plugins using `Vue` instance provided as parameter: this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
 
 ---
 

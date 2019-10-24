@@ -1,6 +1,6 @@
-import { VueConstructor } from 'vue';
 import VueCompositionApi from '@vue/composition-api';
+import { boot } from 'src/quasar-shims/boot';
 
-export default ({ Vue }: { Vue: VueConstructor }) => {
+export default boot(({ Vue }) => {
   Vue.use(VueCompositionApi);
-};
+});

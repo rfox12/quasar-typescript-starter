@@ -1,5 +1,5 @@
 import messages from 'src/i18n';
-import VueType, { VueConstructor, ComponentOptions } from 'vue';
+import { boot } from 'src/quasar-shims/boot';
 import VueI18n from 'vue-i18n';
 
 declare module 'vue/types/vue' {
@@ -8,13 +8,7 @@ declare module 'vue/types/vue' {
   }
 }
 
-export default ({
-  app,
-  Vue
-}: {
-  app: ComponentOptions<VueType>;
-  Vue: VueConstructor;
-}) => {
+export default boot(({ app, Vue }) => {
   Vue.use(VueI18n);
 
   // Set i18n instance on app
@@ -23,4 +17,4 @@ export default ({
     fallbackLocale: 'en-us',
     messages
   });
-};
+});

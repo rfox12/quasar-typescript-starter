@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { VueConstructor } from 'vue';
+import { boot } from 'src/quasar-shims/boot';
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -7,6 +7,6 @@ declare module 'vue/types/vue' {
   }
 }
 
-export default ({ Vue }: { Vue: VueConstructor }) => {
+export default boot(({ Vue }) => {
   Vue.prototype.$axios = axios;
-};
+});
