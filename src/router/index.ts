@@ -1,3 +1,4 @@
+import { HasSsr, HasStore } from 'quasar';
 import { VueConstructor } from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
@@ -7,13 +8,12 @@ import routes from './routes';
  * directly export the Router instantiation
  */
 
-export default function({
-  Vue
-}: {
-  store: any;
-  ssrContext: any;
+type RouterBootParams = {
   Vue: VueConstructor;
-}) {
+} & HasSsr &
+  HasStore;
+
+export default function({ Vue }: RouterBootParams) {
   Vue.use(VueRouter);
 
   const Router = new VueRouter({

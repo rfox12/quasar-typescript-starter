@@ -1,3 +1,4 @@
+import { HasSsr } from 'quasar';
 import { VueConstructor } from 'vue';
 import Vuex from 'vuex';
 
@@ -8,7 +9,11 @@ import Vuex from 'vuex';
  * directly export the Store instantiation
  */
 
-export default function({ Vue }: { ssrContext: any; Vue: VueConstructor }) {
+type StoreBootParams = {
+  Vue: VueConstructor;
+} & HasSsr;
+
+export default function({ Vue }: StoreBootParams) {
   Vue.use(Vuex);
 
   const Store = new Vuex.Store({

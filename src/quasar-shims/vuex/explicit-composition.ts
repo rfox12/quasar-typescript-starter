@@ -1,5 +1,4 @@
 import { ExplicitModuleStore } from './explicit-composition-module';
-import { BootFileParams as BaseBootFileParams } from '../boot';
 
 // Require the centralized store management to manually register all modules slices here
 // This is more explicit, but more coupled:
@@ -7,10 +6,6 @@ import { BootFileParams as BaseBootFileParams } from '../boot';
 interface ExplicitRootStore {
   moduleName: ExplicitModuleStore;
 }
-
-// ExplicitRootStore interface must be manually set like this in user-land, eg. in an helper file
-// Otherwise it should always be specified anywhere it is used, even if we know it will always be the same
-interface BootFileParams extends BaseBootFileParams<ExplicitRootStore> {}
 
 // Works as expected, full type-safety
 const store: ExplicitRootStore = {

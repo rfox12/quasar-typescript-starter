@@ -79,7 +79,7 @@ Boot file should return code wrapped into a callback function given as parameter
 `boot(...)` won't actually do anything and just return the provided callback. It should be added to Quasar helpers to allow `import { boot } from 'quasar`, while right now I'm forced to do `import { boot } from 'src/quasar-shims/boot'`.
 Note that it's return signature is `void | Promise<void>` to support async boot files: in those cases `async` should be used like `export default boot(async () => {...})`.
 
-`BootFileParams` should be updated accordingly to the definition into `src/quasar-shims/boot`.
+`BootFileParams` into core typings should be updated accordingly to the definition into `src/quasar-shims/boot`.
 
 Placing `Vue.use(...)` and static declarations outside boot function seems pretty unconstintent to me, so I moved everything inside the function.
 Also, unless there are performance issues, I'd always install plugins using `Vue` instance provided as parameter: this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
@@ -102,17 +102,47 @@ The global and mixed versions allow us to define `store: RootStore` and avoid ha
 
 ---
 
+In Quasar there is these opt-in features (SSR, Store, etc) which happens to inject some parameters into boot files (mostly).
+To avoid typing those parameters as optional, I setup a feature-flag system which add certain types when a given key is found in the `quasar` scoped interface `QuasarFeatureFlags`.
+To enable a feature flag, a `.d.ts` file must be put into that feature folder (actually, anywhere you like) with content
+
+```ts
+// This import enable module augmentation instead of module overwrite
+import 'quasar';
+
+declare module 'quasar' {
+  interface QuasarFeatureFlags {
+    featureFlagName: true;
+  }
+}
+```
+
+Then you can use `IsFeatureEnabled` to create a conditional type
+
+```ts
+type HasSsr = IsFeatureEnabled<'ssr', { ssrContext?: QSsrContext | null }>;
+```
+
+If the flag is enabled, the type will match the second type parameter, otherwise it will be an empty object.
+This allow you to use it in unions without effects when the feature is disabled.
+
+```ts
+type RouterBootParams = {
+  Vue: VueConstructor;
+} & HasSsr &
+  HasStore;
+```
+
+---
+
 There are some types I simply don't know or am not sure about and which I don't know where are repeated.
 I need your help to identify and write them.
 Some are:
 
 - parameters of boot files ([reference](https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file));
-- the parameter of `store/index.ts`
-- the parameter of `router/index.ts`
 - `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
 - `cfg` webpack extension parameter;
-- `ssrContext` object (as found in `router/index.ts`, `store/index.ts` and many others);
-- `store` object (as found in `router/index.ts`).
+- `ssrContext.req` and `ssrContext.res` properties into `QSsrContext`.
 
 I probably forgot some out.
 
