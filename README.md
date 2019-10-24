@@ -79,10 +79,26 @@ Boot file should return code wrapped into a callback function given as parameter
 `boot(...)` won't actually do anything and just return the provided callback. It should be added to Quasar helpers to allow `import { boot } from 'quasar`, while right now I'm forced to do `import { boot } from 'src/quasar-shims/boot'`.
 Note that it's return signature is `void | Promise<void>` to support async boot files: in those cases `async` should be used like `export default boot(async () => {...})`.
 
-`app` property on `BootFileParams` should be of type `ComponentOptions<Vue>`, not of type `Vue` ([reference](https://discordapp.com/channels/415874313728688138/596276596319453207/632218154445176852)).
+`BootFileParams` should be updated accordingly to the definition into `src/quasar-shims/boot`.
 
 Placing `Vue.use(...)` and static declarations outside boot function seems pretty unconstintent to me, so I moved everything inside the function.
 Also, unless there are performance issues, I'd always install plugins using `Vue` instance provided as parameter: this makes the boot function "pure" by any means and you can easily switch it during unit tests, for example.
+
+---
+
+I never used `Vuex`, so I'm not sure how I should type it with TS.
+In Angular I used to declare a global scope `RootStore` empty interface, then all modules would redeclare it adding theirs slices of the state. Thanks to TS interface merging, I then had a global fully typed `RootStore` interface when I needed it.
+
+Another way could be to separate every slice and manually compose the global state importing every single slice, even if to me it's a bit verbose.
+
+A middle way is to exploit TS definition of module (every TS file with at least an `export` is a TS module) and use interface merging augmenting a predefined module, instead of the global scope.
+
+I added examples for the all three ways into `quasar-shims/vuex` folder.
+
+Anyway [here](https://github.com/vuejs/vuex/issues/564) are some suggestions and guidelines on how to mange Vuex with TS from someone which actually used it.
+
+Regardless of the chosen way, the resulting `RootStore` should be used to type `BootFileParams.store` property.
+The global and mixed versions allow us to define `store: RootStore` and avoid having to always specify `TStore` generic parameter.
 
 ---
 
