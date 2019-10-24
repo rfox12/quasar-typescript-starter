@@ -1,8 +1,9 @@
 /* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = function(/* ctx */) {
@@ -75,7 +76,7 @@ module.exports = function(/* ctx */) {
           // Removed vue from linting to prevent false positives
           //  to block the build process
           // test: /\.(js|vue)$/,
-          test: /\.(js)$/,
+          test: /\.(js, ts, vue)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
