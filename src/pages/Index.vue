@@ -2,24 +2,29 @@
   <q-page class="row items-center justify-evenly">
     <composition-component
       title="Composition type"
+      active
       :todos="todos"
       :meta="meta"
     ></composition-component>
     <class-component title="Class type" active :todos="todos" :meta="meta">
     </class-component>
+    <object-component title="Object type" active :todos="todos" :meta="meta">
+    </object-component>
   </q-page>
 </template>
 
 <script lang="ts">
 import CompositionComponent from 'components/CompositionComponent.vue';
 import ClassComponent from 'components/ClassComponent.vue';
+import ObjectComponent from 'components/ObjectComponent.vue';
 import { Todo, Meta } from 'src/components/models';
 
 export default {
   name: 'PageIndex',
   components: {
     CompositionComponent,
-    ClassComponent
+    ClassComponent,
+    ObjectComponent
   },
   data() {
     const todos: Todo[] = [

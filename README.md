@@ -63,11 +63,11 @@ The component style could also be defined via an option on `quasar new component
 
 Component styles:
 
-- [Composition API](https://github.com/vuejs/composition-api): currently available as a plugin to Vue2, it will be the official way to have TS support. It's currently in `0.x` stage. I've been using it for some time and helping pin-point some edge cases where it still fails, but overall is pretty stable. When Vue3 will be released, it will become the new standard, it will be enbedded into the core and the library won't be needed anymore.
-- [Classes](https://github.com/vuejs/vue-class-component) and [Decorators](https://github.com/kaorun343/vue-property-decorator): current most used TS solution so far, it heavily relies on Decorators which aren't still a well defined standard. Decorators proposal is having some hard times, going back and forth between T39 stages. It will still be supported in Vue3, but from what I read it won't have the core team focus anymore.
+- [Composition API](https://github.com/vuejs/composition-api) ([rfc](https://vue-composition-api-rfc.netlify.com/#basic-example)): currently available as a plugin to Vue2, it will be the official way to have TS support. It's currently in `0.x` stage. I've been using it for some time and helping pin-point some edge cases where it still fails, but overall is pretty stable. When Vue3 will be released, it will become the new standard, it will be enbedded into the core and the library won't be needed anymore.
+- [Classes decorators](https://github.com/vuejs/vue-class-component) and [Property decorators](https://github.com/kaorun343/vue-property-decorator): current most used TS solution so far, it heavily relies on Decorators which aren't still a well defined standard. Decorators proposal is having some hard times, going back and forth between T39 stages. It will still be supported in Vue3, but from what I read it won't have the core team focus.
 - Object syntax: good old plain object notation. Can be used with TS, but it requires a lot of typings overhead, quirks to get it right and it still fails to model some concepts, not recommended when using TS.
 
-I put example components for both Composition API and Class Decorators from which its possible to deduce a template for automatic generation.
+I put example components for all styles, from which is possible to abstract a template for automatic scaffolding.
 I can produce more complex examples if needed.
 
 ## Boot files
