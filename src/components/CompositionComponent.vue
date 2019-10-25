@@ -16,6 +16,25 @@
 import { createComponent, PropType, computed, ref } from '@vue/composition-api';
 import { Todo, Meta } from './models';
 
+function clickFeatures() {
+  const clickCount = ref(0);
+  function increment() {
+    return clickCount.value++;
+  }
+
+  return { clickCount, increment };
+}
+
+function todoFeatures(todos: Todo[]) {
+  const todoCount = computed(() => todos.length);
+
+  function prettyTodo(todo: Todo) {
+    return `${todo.id} - ${todo.content}`;
+  }
+
+  return { todoCount, prettyTodo };
+}
+
 export default createComponent({
   name: 'CompositionComponent',
   props: {
@@ -36,19 +55,7 @@ export default createComponent({
     }
   },
   setup({ todos }) {
-    const clickCount = ref(0);
-
-    const todoCount = computed(() => todos.length);
-
-    function prettyTodo(todo: Todo) {
-      return `${todo.id} - ${todo.content}`;
-    }
-
-    function increment() {
-      return clickCount.value++;
-    }
-
-    return { clickCount, todoCount, prettyTodo, increment };
+    return { ...clickFeatures(), ...todoFeatures(todos) };
   }
 });
 </script>

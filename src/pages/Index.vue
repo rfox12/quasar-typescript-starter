@@ -1,11 +1,12 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="row items-center justify-evenly">
     <composition-component
       title="Composition type"
       :todos="todos"
       :meta="meta"
     ></composition-component>
-    <class-component></class-component>
+    <class-component title="Class type" active :todos="todos" :meta="meta">
+    </class-component>
   </q-page>
 </template>
 
