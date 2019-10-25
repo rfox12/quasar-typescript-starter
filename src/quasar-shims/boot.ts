@@ -24,5 +24,5 @@ export type BootFileParams = Omit<
   HasStore;
 
 export const boot = (
-  callback: (parms: BootFileParams) => void | Promise<void>
+  callback: (params: BootFileParams) => void | Promise<void>
 ) => callback;
