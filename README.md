@@ -67,7 +67,7 @@ Component styles:
 - [Classes decorators](https://github.com/vuejs/vue-class-component) and [Property decorators](https://github.com/kaorun343/vue-property-decorator): current most used TS solution so far, it heavily relies on Decorators which aren't still a well defined standard. Decorators proposal is having some hard times, going back and forth between T39 stages. It will still be supported in Vue3, but from what I read it won't have the core team focus.
 - Object syntax: good old plain object notation. Can be used with TS, but it requires a lot of typings overhead, quirks to get it right and it still fails to model some concepts, not recommended when using TS.
 
-I put example components for all styles, from which is possible to abstract a template for automatic scaffolding.
+I put example components for all styles into `src/quasar-shim/component-styles`, from which is possible to abstract a template for automatic scaffolding.
 I can produce more complex examples if needed.
 
 ## Boot files
