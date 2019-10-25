@@ -1,4 +1,3 @@
-// This import enable module augmentation instead of module overwrite
 import { RootStore } from './vuex';
 import { QSsrContext } from './boot';
 
