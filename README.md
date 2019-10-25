@@ -137,6 +137,7 @@ I need your help to identify and write them.
 Some are:
 
 - parameters of boot files ([reference](https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file));
+- files into `src-ssr`;
 - scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770)
 - `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
 - `cfg` webpack extension parameter;

@@ -16,8 +16,11 @@ declare module 'quasar/dist/types/boot' {
   }
 }
 
-// These interfaces cannot be augmented into quasar module scope
-//  because they are in conflict with some of inner declarations
+/**
+ * These interfaces cannot be augmented into quasar module scope
+ * because they are in conflict with some of inner declarations
+ */
+
 export interface QuasarPluginOptions
   extends Omit<BaseQuasarPluginOptions, 'lang' | 'iconSet'> {
   lang: QuasarLanguage;
@@ -27,6 +30,8 @@ export interface QuasarPluginOptions
 export type BootFileParams = Omit<BaseBootFileParams, 'app' | 'store'> & {
   // See https://discordapp.com/channels/415874313728688138/596276596319453207/632218154445176852
   app: ComponentOptions<Vue>;
+  urlPath: string;
+  redirect: (url: string) => void;
 } & HasSsr &
   HasStore;
 
