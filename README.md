@@ -4,6 +4,7 @@ Most of the stuff is copied from TypeScript app-extension to which I previously 
 Especially webpack configuration extension has been taken from there and I cannot guarantee it's the best way to manage it, not having done it myself, but it works.
 
 Current setup is meant to work with normal, PWA and Electron modes and has not been tried with Cordova.
+All meaningful open issues I found on `app-extension-typescript` are solved by this starter.
 
 ## ESLint
 
@@ -28,6 +29,7 @@ Into `tsconfig.json`:
 - `"resolveJsonModule": true` is needed only if importing JSON files into TS code.
 - `"esModuleInterop": true` is needed to better manage non-TS libraries.
 - `"types": [ "quasar" ]` is needed because "the actual import of the Quasar components is done in generated code that for some reason the VS Code is not picking up on consistently (it may be b/c that code is generated as JS not TS)" (cit Kerry on Discord, [reference](https://github.com/quasarframework/app-extension-typescript/pull/39)).
+- `"exclude": [ ... , "/dist"]` is needed or some files which has been copied over for any reason during a build process (eg. a `.d.ts` file inside `src-ssr` folder) would apply their types even when original files has been updated.
 
 ## Quasar config
 
@@ -132,25 +134,10 @@ type RouterBootParams = {
 
 ## Unanswered questions / WIP
 
-There are some types I simply don't know or am not sure about and which I don't know where are repeated.
-I need your help to identify and write them.
-Some are:
+I have some doubts about stuff I didn't understand, I'll put them here in random order:
 
-- parameters of boot files ([reference](https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file));
-- files into `src-ssr`;
+- files into `src-ssr`, which are marked with this disclaimer `This file runs in a Node context (it's NOT transpiled by Babel), so use only the ES6 features that are supported by your Node version.`. Should I try to setup them with TS and their transpilation? I don't know if it's worth it, are they supposed to be heavily manipulated by the user?
 - scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770)
 - `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
 - `cfg` webpack extension parameter;
-- `ssrContext.req` and `ssrContext.res` properties into `QSsrContext`.
-
-I probably forgot some out.
-
-## Future works
-
-Fast links to issues to look out for after adding TS support into core package:
-
-- https://github.com/quasarframework/app-extension-typescript/issues/32
-- https://github.com/quasarframework/app-extension-typescript/issues/31
-- https://github.com/quasarframework/app-extension-typescript/issues/29
-- https://github.com/quasarframework/app-extension-typescript/issues/23
-- https://github.com/quasarframework/app-extension-typescript/issues/17
+- `ssrContext.req` and `ssrContext.res` properties into `QSsrContext` are probably much more whan just the ones defined right now.
