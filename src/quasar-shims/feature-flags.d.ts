@@ -1,6 +1,6 @@
 // This import enable module augmentation instead of module overwrite
-import { QSsrContext } from 'quasar';
 import { RootStore } from './vuex';
+import { QSsrContext } from './boot';
 
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files

@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@quasar/app": "^1.2.2",
+    "@types/express": "^4.17.1",
     "@types/node": "^12.11.6",
     "@types/tapable": "^1.0.4",
     "@types/webpack": "^4.39.5",
