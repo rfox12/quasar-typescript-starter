@@ -102,8 +102,8 @@ The global and mixed versions allow us to define `store: RootStore` and avoid ha
 ## Feature flagged types
 
 In Quasar there is these opt-in features (SSR, Store, etc) which happens to inject some parameters into boot files (mostly).
-To avoid typing those parameters as optional, I setup a feature-flag system which add certain types when a given key is found in the `quasar` scoped interface `QuasarFeatureFlags`.
-To enable a feature flag, a `*-flag.d.ts` file must be put into that feature folder (actually, anywhere you like) with content
+To avoid showing those parameters to whom have not opt-in to those features, I setup a feature-flag system which add certain types when a given key is found in the `quasar` scoped interface `QuasarFeatureFlags`.
+To enable a feature flag, a `*-flag.d.ts` file must be present into that feature folder (or anywhere is more likable, the further possible from user reach would be better) with content
 
 ```ts
 // This import enable module augmentation instead of module overwrite
@@ -131,6 +131,8 @@ type RouterBootParams = {
 } & HasSsr &
   HasStore;
 ```
+
+**FEATURE FLAG FILES ARE NOT USER GENERATED: THEY SHOULD BE ADDED TO `/app/templates/<feature folder>` AND SCAFFOLDED BY THE CLI**
 
 ## Unanswered questions / WIP
 
