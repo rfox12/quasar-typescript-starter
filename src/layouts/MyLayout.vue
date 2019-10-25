@@ -83,7 +83,7 @@
   </q-layout>
 </template>
 
-<script script="ts">
+<script lang="ts">
 export default {
   name: 'MyLayout',
 
