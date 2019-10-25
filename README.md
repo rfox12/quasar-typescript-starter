@@ -100,7 +100,7 @@ The global and mixed versions allow us to define `store: RootStore` and avoid ha
 
 In Quasar there is these opt-in features (SSR, Store, etc) which happens to inject some parameters into boot files (mostly).
 To avoid typing those parameters as optional, I setup a feature-flag system which add certain types when a given key is found in the `quasar` scoped interface `QuasarFeatureFlags`.
-To enable a feature flag, a `.d.ts` file must be put into that feature folder (actually, anywhere you like) with content
+To enable a feature flag, a `*-flag.d.ts` file must be put into that feature folder (actually, anywhere you like) with content
 
 ```ts
 // This import enable module augmentation instead of module overwrite
