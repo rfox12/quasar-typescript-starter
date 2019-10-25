@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts">
-import CompositionComponent from 'components/CompositionComponent.vue';
-import ClassComponent from 'components/ClassComponent.vue';
-import ObjectComponent from 'components/ObjectComponent.vue';
-import { Todo, Meta } from 'src/components/models';
+import CompositionComponent from '../quasar-shims/component-styles/CompositionComponent.vue';
+import ClassComponent from '../quasar-shims/component-styles/ClassComponent.vue';
+import ObjectComponent from '../quasar-shims/component-styles/ObjectComponent.vue';
+import { Todo, Meta } from '../quasar-shims/component-styles/models';
 
 export default {
   name: 'PageIndex',
