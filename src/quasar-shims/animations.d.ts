@@ -1,0 +1,91 @@
+// These animations are taken from `@quasar/extras/animate/animate-list`
+// There is probably a better way to extract them from that file
+declare module '@quasar/extras' {
+  type QuasarGeneralAnimations =
+    | 'bounce'
+    | 'flash'
+    | 'flip'
+    | 'headShake'
+    | 'hinge'
+    | 'jello'
+    | 'pulse'
+    | 'rubberBand'
+    | 'shake'
+    | 'swing'
+    | 'tada'
+    | 'wobble';
+
+  type QuasarInAnimations =
+    | 'bounceIn'
+    | 'bounceInDown'
+    | 'bounceInLeft'
+    | 'bounceInRight'
+    | 'bounceInUp'
+    | 'fadeIn'
+    | 'fadeInDown'
+    | 'fadeInDownBig'
+    | 'fadeInLeft'
+    | 'fadeInLeftBig'
+    | 'fadeInRight'
+    | 'fadeInRightBig'
+    | 'fadeInUp'
+    | 'fadeInUpBig'
+    | 'flipInX'
+    | 'flipInY'
+    | 'lightSpeedIn'
+    | 'rollIn'
+    | 'rotateIn'
+    | 'rotateInDownLeft'
+    | 'rotateInDownRight'
+    | 'rotateInUpLeft'
+    | 'rotateInUpRight'
+    | 'slideInDown'
+    | 'slideInLeft'
+    | 'slideInRight'
+    | 'slideInUp'
+    | 'zoomIn'
+    | 'zoomInDown'
+    | 'zoomInLeft'
+    | 'zoomInRight'
+    | 'zoomInUp';
+
+  type QuasarOutAnimations =
+    | 'bounceOut'
+    | 'bounceOutDown'
+    | 'bounceOutLeft'
+    | 'bounceOutRight'
+    | 'bounceOutUp'
+    | 'fadeOut'
+    | 'fadeOutDown'
+    | 'fadeOutDownBig'
+    | 'fadeOutLeft'
+    | 'fadeOutLeftBig'
+    | 'fadeOutRight'
+    | 'fadeOutRightBig'
+    | 'fadeOutUp'
+    | 'fadeOutUpBig'
+    | 'flipOutX'
+    | 'flipOutY'
+    | 'lightSpeedOut'
+    | 'rollOut'
+    | 'rotateOut'
+    | 'rotateOutDownLeft'
+    | 'rotateOutDownRight'
+    | 'rotateOutUpLeft'
+    | 'rotateOutUpRight'
+    | 'slideOutDown'
+    | 'slideOutLeft'
+    | 'slideOutRight'
+    | 'slideOutUp'
+    | 'slideOutRight'
+    | 'zoomOut'
+    | 'zoomOutDown'
+    | 'zoomOutLeft'
+    | 'zoomOutRight'
+    | 'zoomOutUp';
+
+  type QuasarAnimations =
+    | QuasarGeneralAnimations
+    | QuasarInAnimations
+    | QuasarOutAnimations;
+}

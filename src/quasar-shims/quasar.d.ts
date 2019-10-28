@@ -1,7 +1,9 @@
-import { QuasarPluginOptions as BaseQuasarPluginOptions } from 'quasar';
+import {
+  QuasarPluginOptions as BaseQuasarPluginOptions,
+  QuasarLanguage,
+  QuasarIconSet
+} from 'quasar';
 import { PluginObject } from 'vue';
-import { QuasarIconSet } from './icon-set';
-import { QuasarLanguage } from './lang';
 
 /**
  * These interfaces cannot be augmented into quasar module scope

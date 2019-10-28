@@ -134,12 +134,29 @@ type RouterBootParams = {
 
 **FEATURE FLAG FILES ARE NOT USER GENERATED: THEY SHOULD BE ADDED TO `/app/templates/<feature folder>` AND SCAFFOLDED BY THE CLI**
 
+## Configuration file
+
+`quasar.conf` file is a big beast, talking about typings.
+I had to split many parts in their standalone files, yet you can get lost in it pretty easily.
+With its intricated maze of options, it required many dependencies on `@type/**` libreries to get nearly-full type-safety.
+
+There are **a lot** of business rules I don't think I'll be able to model with TS alone if underlying code doesn't change, and yet I don't know exactly how code will need to change to get easier and maintenable typings (for now).
+
+Type inference is done as always with an noop function (`configure`) which takes the configuration callback an returns it add typings.
+I don't know if it's possible to get typings into `quasar.conf.js` as is, early trial I did weren't successful.
+If it is possible, it should be via usage of the compiled `configure` function (after it has been added to core), for which _I think_ VSCode wll be able to retain typings.
+
+If it's not possible, we need to make configuration file a `.ts` file.
+I haven't dig down that road yet (especially when in watch mode), but _I think_ that using `tsc` compiler in watch mode or relying on a `ts-node` could be some options.
+
+Most of the typings I made are added to `quasar` module, but I put extras into `@quasar/extras` module.
+It's still possible to just keep everything together.
+
+There are a lot of `TODO` around to improve the overall autocomplete experience, but I think typings are usable right now.
+
 ## Unanswered questions / WIP
 
 I have some doubts about stuff I didn't understand, I'll put them here in random order:
 
 - files into `src-ssr`, which are marked with this disclaimer `This file runs in a Node context (it's NOT transpiled by Babel), so use only the ES6 features that are supported by your Node version.`. Should I try to setup them with TS and their transpilation? I don't know if it's worth it, are they supposed to be heavily manipulated by the user?
-- scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770)
-- `ctx` parameter of `quasar.config.js` function, if you want to change that file to TS too (it could be useful);
-- `cfg` webpack extension parameter;
-- `ssrContext.req` and `ssrContext.res` properties into `QSsrContext` are probably much more whan just the ones defined right now.
+- scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770).
