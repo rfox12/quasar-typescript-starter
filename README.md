@@ -160,3 +160,4 @@ I have some doubts about stuff I didn't understand, I'll put them here in random
 
 - files into `src-ssr`, which are marked with this disclaimer `This file runs in a Node context (it's NOT transpiled by Babel), so use only the ES6 features that are supported by your Node version.`. Should I try to setup them with TS and their transpilation? I don't know if it's worth it, are they supposed to be heavily manipulated by the user?
 - scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770).
+- random note: Webpack config can be managed and [run with TS](https://webpack.js.org/configuration/configuration-languages/#typescript).
