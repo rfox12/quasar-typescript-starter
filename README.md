@@ -43,13 +43,23 @@ Into `quasar.config.json`:
 
 `"vetur.format.defaultFormatter.html": "prettier"` should be added only when using Prettier.
 
-## Quasar types
+## Existing Quasar types
+
+I checked current Quasar types and put types which must be updated into `quasar-shims` > `utils` folder.
+I found many discrepancies between the types and actual implementation, in some cases also some bugs.
+It's not always auspicable to have 100% adherence with implementation, so I left a comment for each proposed update and I'll you decide which are to do and which not.
+Where I left a `TODO`, it's a question to you.
+Where I left a `FIXME`, it's a signal that I may have spotted a bug in the **implementation** which checking types.
+
+I'm still working on `QVueGlobals` review.
+
+## New Quasar types
 
 All definitions inside `quasar-shims` are types which need to be added into core typings.
 Some of those files are helpful but a pain in the ass to maintain, because manually derived from JSON files (see `icon-set.ts` and `lang.ts`).
-It would be easier if JSON files could be converted to be `.ts` files, in which case we could rely on TS inference and declaration merging to some extent to get automatic typings.
+It would be easier if JS files could be converted to be `.ts` files, in which case we could rely on TS inference and declaration merging to some extent to get automatic typings.
 
-Some of types are rarely used (only when unit testing in my experience) and you can safely avoid to add them if keeping their types in sync is too troublesome, leaving `any` if there is no way to derive them automatically.
+Some types are rarely used (only when unit testing in my experience) and you can safely avoid to add them if keeping their types in sync is too troublesome, leaving `any` if there is no way to derive them automatically.
 
 This principle works the same with components of course: Quasar components use render functions instead of SFC, so switching to native TS support using `.ts` files is relatively easy and removes the tooling process to manually sync typings.
 
@@ -154,10 +164,8 @@ It's still possible to just keep everything together.
 
 There are a lot of `TODO` around to improve the overall autocomplete experience, but I think typings are usable right now.
 
-## Unanswered questions / WIP
-
-I have some doubts about stuff I didn't understand, I'll put them here in random order:
+## Unanswered questions
 
 - files into `src-ssr`, which are marked with this disclaimer `This file runs in a Node context (it's NOT transpiled by Babel), so use only the ES6 features that are supported by your Node version.`. Should I try to setup them with TS and their transpilation? I don't know if it's worth it, are they supposed to be heavily manipulated by the user?
-- scroll utility types ([reference](https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770).
 - random note: Webpack config can be managed and [run with TS](https://webpack.js.org/configuration/configuration-languages/#typescript).
+- I saw you detected listener options support as suggested by Mozilla, I'd add a link to "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Safely_detecting_option_support" just in case someone gets around it, because it's pretty obscure without comments explaining it.
