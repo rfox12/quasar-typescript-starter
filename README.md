@@ -169,3 +169,7 @@ There are a lot of `TODO` around to improve the overall autocomplete experience,
 - files into `src-ssr`, which are marked with this disclaimer `This file runs in a Node context (it's NOT transpiled by Babel), so use only the ES6 features that are supported by your Node version.`. Should I try to setup them with TS and their transpilation? I don't know if it's worth it, are they supposed to be heavily manipulated by the user?
 - random note: Webpack config can be managed and [run with TS](https://webpack.js.org/configuration/configuration-languages/#typescript).
 - I saw you detected listener options support as suggested by Mozilla, I'd add a link to "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Safely_detecting_option_support" just in case someone gets around it, because it's pretty obscure without comments explaining it.
+
+## TODO
+
+- Make Quasar webpack alias work nice with TS and VSCode Intellisense. Possibly without duplication (Webpack read from `tsconfig` or vice-versa)
