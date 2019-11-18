@@ -2,6 +2,7 @@ import { RootStore } from './vuex';
 import { QSsrContext } from './boot';
 import { Capacitor } from '../../src-capacitor/node_modules/@capacitor/core';
 import * as electron from 'electron';
+import * as Cordova from 'cordova';
 
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files
@@ -24,12 +25,15 @@ declare module 'quasar' {
   type HasSsr = IsFeatureEnabled<'ssr', { ssrContext?: QSsrContext | null }>;
   type HasStore = IsFeatureEnabled<'store', { store: RootStore }>;
 
-  // Used into QVueGlobals
+  // --- Used into QVueGlobals ---
+
+  // Capacitor typings are into @capacitor/core,
+  //  will it be possible to retain types also inside it?
   type HasCapacitor = IsFeatureEnabled<
     'capacitor',
     { capacitor: typeof Capacitor }
   >;
-  type HasCordova = IsFeatureEnabled<'cordova', { cordova: unknown }>;
+  type HasCordova = IsFeatureEnabled<'cordova', { cordova: typeof Cordova }>;
   type HasElectron = IsFeatureEnabled<
     'electron',
     { electron: typeof electron }

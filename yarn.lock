@@ -996,6 +996,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cordova@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
+  integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
+
 "@types/electron-packager@^14.0.0":
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/@types/electron-packager/-/electron-packager-14.0.0.tgz#f6dab1542fe02a3dd235d9bf66c8cb365f123902"
