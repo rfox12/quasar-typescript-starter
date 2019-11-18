@@ -35,7 +35,7 @@ Into `tsconfig.json`:
 
 Into `quasar.config.json`:
 
-- `fork-ts-checker-webpack-plugin` is used by default without asking to the end-user (in the app-extension a prompt was shown). As I have understood this solution is the fastest because it runs the type checker in a parallel process, but require the user to properly setup its `tsconfig.json` to include all files to check, while the original `ts-loader` relies on webpack's module resolutions to know which files should be checkd and must wait for webpack to finish its job. [Reference](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). There seems to be [a regression](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/339) with new versions of the plugin, whose typings relies on `webpack` and `tapable` ones. I manually added `@types/webpack` and `@types/tapable` as devDependencies to workaround it.
+- `fork-ts-checker-webpack-plugin` is used by default without asking to the end-user (in the app-extension a prompt was shown). As I have understood this solution is the fastest because it runs the type checker in a parallel process, but require the user to properly setup its `tsconfig.json` to include all files to check, while the original `ts-loader` relies on webpack's module resolutions to know which files should be checked and must wait for webpack to finish its job. [Reference](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). There seems to be [a regression](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/339) with new versions of the plugin, whose typings relies on `webpack` and `tapable` ones. I manually added `@types/webpack` and `@types/tapable` as devDependencies to workaround it.
 
 ## VSCode config
 
@@ -144,6 +144,12 @@ type RouterBootParams = {
 
 **FEATURE FLAG FILES ARE NOT USER GENERATED: THEY SHOULD BE ADDED TO `/app/templates/<feature folder>` AND SCAFFOLDED BY THE CLI**
 
+## Capacitor/Cordova
+
+While Electron dependencies are added on root-level `package.json`, Capacitor (and Cordova, as I have understood) require to install their plugins into their inner `package.json`.
+This takes those plugins out of `src` folder scope, making theirs types not visible when working on the application code.
+Triple-slash directive seems to not work in this scenario, only deep-import does the trick (see `Capacitor` import into `feature-flags.d.ts`) but it will probably create some problems when the type definition is included into Quasar core.
+
 ## Configuration file
 
 `quasar.conf` file is a big beast, talking about typings.
@@ -154,15 +160,15 @@ There are **a lot** of business rules I don't think I'll be able to model with T
 
 Type inference is done as always with an noop function (`configure`) which takes the configuration callback an returns it add typings.
 I don't know if it's possible to get typings into `quasar.conf.js` as is, early trial I did weren't successful.
-If it is possible, it should be via usage of the compiled `configure` function (after it has been added to core), for which _I think_ VSCode wll be able to retain typings.
+If it is possible, it should be via usage of the compiled `configure` function (after it has been added to core), for which _I think_ VSCode will be able to retain typings.
 
 If it's not possible, we need to make configuration file a `.ts` file.
 I haven't dig down that road yet (especially when in watch mode), but _I think_ that using `tsc` compiler in watch mode or relying on a `ts-node` could be some options.
 
-Most of the typings I made are added to `quasar` module, but I put extras into `@quasar/extras` module.
+Most of the typings I made are added by augmenting `quasar` module, but I put extras into `@quasar/extras` module.
 It's still possible to just keep everything together.
 
-There are a lot of `TODO` around to improve the overall autocomplete experience, but I think typings are usable right now.
+There are a lot of `TODO` around to improve the overall autocomplete experience, but typings are usable right now.
 
 ## Unanswered questions
 
@@ -173,3 +179,5 @@ There are a lot of `TODO` around to improve the overall autocomplete experience,
 ## TODO
 
 - Make Quasar webpack alias work nice with TS and VSCode Intellisense. Possibly without duplication (Webpack read from `tsconfig` or vice-versa)
+- Study components JSON-derived typing system
+- Capacitor/Cordova plugin typings

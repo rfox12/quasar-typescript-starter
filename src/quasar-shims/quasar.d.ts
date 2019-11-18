@@ -1,7 +1,7 @@
 import {
-  QuasarPluginOptions as BaseQuasarPluginOptions,
+  QuasarIconSet,
   QuasarLanguage,
-  QuasarIconSet
+  QuasarPluginOptions as BaseQuasarPluginOptions
 } from 'quasar';
 import { PluginObject } from 'vue';
 

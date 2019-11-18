@@ -1,5 +1,7 @@
 import { RootStore } from './vuex';
 import { QSsrContext } from './boot';
+import { Capacitor } from '../../src-capacitor/node_modules/@capacitor/core';
+import * as electron from 'electron';
 
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files
@@ -18,6 +20,18 @@ declare module 'quasar' {
     T
   > = QuasarFeatureFlags[O] extends true ? T : {};
 
+  // Used into Boot files and similar
   type HasSsr = IsFeatureEnabled<'ssr', { ssrContext?: QSsrContext | null }>;
   type HasStore = IsFeatureEnabled<'store', { store: RootStore }>;
+
+  // Used into QVueGlobals
+  type HasCapacitor = IsFeatureEnabled<
+    'capacitor',
+    { capacitor: typeof Capacitor }
+  >;
+  type HasCordova = IsFeatureEnabled<'cordova', { cordova: unknown }>;
+  type HasElectron = IsFeatureEnabled<
+    'electron',
+    { electron: typeof electron }
+  >;
 }
