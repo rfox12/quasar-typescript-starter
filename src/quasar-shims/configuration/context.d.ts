@@ -1,5 +1,6 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
+import { Configuration as ElectronBuilderConfiguration } from 'electron-builder';
 
 declare module 'quasar' {
   type QuasarModes =
@@ -65,35 +66,72 @@ declare module 'quasar' {
     emulator: string;
   }
 
-  interface ElectronQuasarContext extends BaseQuasarContext {
+  interface BaseElectronQuasarContext extends BaseQuasarContext {
     // TODO: is there a way to automatize this two properties?
     mode: { electron: true };
     modeName: 'electron';
+    // TODO: find a way to model "exactly one property between the given ones"
+    bundler: { [index in QuasarElectronBundlers]?: true };
+    bundlerName: QuasarElectronBundlers;
+  }
+
+  interface ElectronBuilderQuasarContext extends BaseElectronQuasarContext {
+    bundler: { builder: true };
+    bundlerName: 'builder';
     /**
      * App target.
      *
      * @default 'current system'
      */
-    // TODO: must have different possible targets depending on which mode it has and its bundler
     // TODO: find a way to model "exactly one property between the given ones"
     target: {
-      [index in QuasarBuilderTargets | QuasarPackagerTargets]?: true;
+      [index in QuasarBuilderTargets]?: true;
     };
     /** App target name. */
-    targetName: QuasarBuilderTargets | QuasarPackagerTargets;
-    // TODO: must have different possible arch depending on used bundler
+    targetName: QuasarBuilderTargets;
     // TODO: find a way to model "exactly one property between the given ones"
     arch: {
-      [index in QuasarBuilderArchs | QuasarPackagerArchs]?: true;
+      [index in QuasarBuilderArchs]?: true;
     };
-    // TODO: must have different possible arch depending on used bundler
-    archName: QuasarBuilderArchs | QuasarPackagerArchs;
-    // TODO: find a way to model "exactly one property between the given ones"
-    bundler: { [index in QuasarElectronBundlers]?: true };
-    bundlerName: QuasarElectronBundlers;
-    // TODO: may be present only if bundler is builder
+    archName: QuasarBuilderArchs;
+    /**
+     * Publish options.
+     *
+     * If not set, its default value is deduced by the environment.
+     * See https://www.electron.build/configuration/publish#how-to-publish
+     */
     publish?: 'onTag' | 'onTagOrDraft' | 'always' | 'never';
+    /**
+     * Electron-builder configuration for publishing.
+     * See https://www.electron.build/configuration/configuration
+     */
+    builder: ElectronBuilderConfiguration;
   }
+
+  interface ElectronPackagerQuasarContext extends BaseElectronQuasarContext {
+    bundler: { packager: true };
+    bundlerName: 'packager';
+    /**
+     * App target.
+     *
+     * @default 'current system'
+     */
+    // TODO: find a way to model "exactly one property between the given ones"
+    target: {
+      [index in QuasarPackagerTargets]?: true;
+    };
+    /** App target name. */
+    targetName: QuasarPackagerTargets;
+    // TODO: find a way to model "exactly one property between the given ones"
+    arch: {
+      [index in QuasarPackagerArchs]?: true;
+    };
+    archName: QuasarPackagerArchs;
+  }
+
+  type ElectronQuasarContext =
+    | ElectronBuilderQuasarContext
+    | ElectronPackagerQuasarContext;
 
   interface SpaQuasarContext extends BaseQuasarContext {
     // TODO: is there a way to automatize this two properties?
@@ -115,7 +153,7 @@ declare module 'quasar' {
 
   // TODO: this works nicely, but checking current mode in TS is easier with
   //  `context.modeName === 'spa'` instead of `context.mode.spa` as it was with JS
-  // Check if there is some way to make this better
+  // Check if there is some way to make JS way working well in TS
   type QuasarContext =
     | SpaQuasarContext
     | HasPwa<PwaQuasarContext, never>

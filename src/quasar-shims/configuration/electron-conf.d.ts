@@ -7,7 +7,7 @@ import WebpackChain from 'webpack-chain';
 import 'webpack-dev-server';
 
 declare module 'quasar' {
-  type QuasarElectronBundlers = 'packager' | 'builder';
+  type QuasarElectronBundlers = 'builder' | 'packager';
 
   type QuasarBuilderArchs = 'ia32' | 'x64' | 'armv7l' | 'arm64' | 'all';
   type QuasarPackagerArchs =
