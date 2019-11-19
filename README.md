@@ -157,22 +157,34 @@ Triple-slash directive seems to not work in this scenario, only deep-import does
 ## Configuration file
 
 `quasar.conf` file is a big beast, talking about typings.
-I had to split many parts in their standalone files, yet you can get lost in it pretty easily.
-With its intricated maze of options, it required many dependencies on `@type/**` libreries to get nearly-full type-safety.
+I had to split many parts in their standalone files, yet you can get lost in them pretty easily.
+With its intricated maze of options, it requires many dependencies on `@type/**` libreries to get nearly-full type safety.
 
 There are **a lot** of business rules I don't think I'll be able to model with TS alone if underlying code doesn't change, and yet I don't know exactly how code will need to change to get easier and maintenable typings (for now).
 
-Type inference is done as always with an noop function (`configure`) which takes the configuration callback an returns it add typings.
+Type inference is done as always with an noop function (`configure`) which takes the configuration callback and returns it but with typings applied.
 I don't know if it's possible to get typings into `quasar.conf.js` as is, early trial I did weren't successful.
 If it is possible, it should be via usage of the compiled `configure` function (after it has been added to core), for which _I think_ VSCode will be able to retain typings.
 
 If it's not possible, we need to make configuration file a `.ts` file.
 I haven't dig down that road yet (especially when in watch mode), but _I think_ that using `tsc` compiler in watch mode or relying on a `ts-node` could be some options.
 
-Most of the typings I made are added by augmenting `quasar` module, but I put extras into `@quasar/extras` module.
-It's still possible to just keep everything together.
+Most of the typings I made are added by augmenting `quasar` module, but I put extras into `@quasar/extras` module for coherence: it's still possible to keep everything together.
 
-There are a lot of `TODO` around to improve the overall autocomplete experience, but typings are usable right now.
+Because of how TS typings system works, types applied by `configure` function are open types, which means that they accept more properties than the ones defined on their interfaces without firing an error.
+You can check this loose type check into `quasar.conf.ts` file.
+
+Getting stricter type check require an easy workaround, you can see it in action into `strict-quasar.conf.ts`.
+In this version, additional properties will fire an error, this means that you cannot add "configuration examples" which are not valid.
+Eg:
+
+- adding `cordova`, `electron` and `capacitor` properties without having the relative feature flag enabled will throw an error;
+- adding both `packager` and `builder` properties into `electron` property will throw an error.
+
+Its also debatable if adding configuration examples still makes sense, when you have full intellisense support for the configuration file (of course some guidance comment will be useful anyway).
+It's also possible to get a cleaner conf file mobing links to the documentation in comments to properties TSDocs.
+
+There are a lot of `TODO` around to keep track of where is still possible to improve code quality or the overall autocomplete experience, but typings are already usable right now.
 
 ## Unanswered questions
 
