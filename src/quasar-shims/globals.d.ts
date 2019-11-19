@@ -1,4 +1,7 @@
 import 'quasar';
+import * as Cordova from 'cordova';
+import * as electron from 'electron';
+import { Capacitor } from '../../src-capacitor/node_modules/@capacitor/core';
 
 declare module 'quasar' {
   interface GlobalQuasarLanguage extends QuasarLanguage {
@@ -12,7 +15,12 @@ declare module 'quasar' {
   }
 
   // HasCapacitor, HasCordova and HasElectron are hidden behind feature-flags
-  interface QVueGlobals extends HasCapacitor, HasCordova, HasElectron {
+  // Capacitor typings are into @capacitor/core,
+  //  will it be possible to retain types also inside it?
+  interface QVueGlobals
+    extends HasCapacitor<{ capacitor: typeof Capacitor }>,
+      HasCordova<{ cordova: typeof Cordova }>,
+      HasElectron<{ electron: typeof electron }> {
     version: string;
     lang: GlobalQuasarLanguage;
     iconSet: GlobalQuasarIconSet;
