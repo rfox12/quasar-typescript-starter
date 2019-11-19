@@ -2,6 +2,7 @@
 import 'quasar';
 import { QuasarAnimations, QuasarExtrasOptions } from '@quasar/extras';
 import { WebpackConfiguration } from '../helpers';
+import { HasPwa, HasCapacitor, HasCordova, HasElectron } from 'quasar';
 
 declare module 'quasar' {
   // TODO: allow only one instance per literal
@@ -58,7 +59,7 @@ declare module 'quasar' {
   // TODO: options descriptions has been copied from docs,
   //  they should probably be kept only here and use these to generate
   //  the ones used in the docs.
-  interface QuasarConfiguration {
+  interface BaseQuasarConfiguration {
     /** Boot files to load. Order is important. */
     boot?: QuasarBootConfiguration;
     /**
@@ -109,15 +110,27 @@ declare module 'quasar' {
     build?: QuasarBuildConfiguration;
     /** Change the default name of parts of your app. */
     sourceFiles?: QuasarSourceFilesConfiguration;
-    /** PWA specific [config](/quasar-cli/developing-pwa/configuring-pwa). */
-    pwa?: QuasarPwaConfiguration;
-    /** SSR specific [config](/quasar-cli/developing-ssr/configuring-ssr). */
-    ssr?: QuasarSsrConfiguration;
-    /** Capacitor specific [config](/quasar-cli/developing-capacitor-apps/configuring-capacitor). */
-    capacitor?: QuasarCapacitorConfiguration;
-    /** Cordova specific [config](/quasar-cli/developing-cordova-apps/configuring-cordova). */
-    cordova?: QuasarCordovaConfiguration;
-    /** Electron specific [config](/quasar-cli/developing-electron-apps/configuring-electron). */
-    electron?: QuasarElectronConfiguration;
   }
+
+  type QuasarConfiguration = BaseQuasarConfiguration &
+    HasPwa<{
+      /** PWA specific [config](/quasar-cli/developing-pwa/configuring-pwa). */
+      pwa?: QuasarPwaConfiguration;
+    }> &
+    HasSsr<{
+      /** SSR specific [config](/quasar-cli/developing-ssr/configuring-ssr). */
+      ssr?: QuasarSsrConfiguration;
+    }> &
+    HasCapacitor<{
+      /** Capacitor specific [config](/quasar-cli/developing-capacitor-apps/configuring-capacitor). */
+      capacitor?: QuasarCapacitorConfiguration;
+    }> &
+    HasCordova<{
+      /** Cordova specific [config](/quasar-cli/developing-cordova-apps/configuring-cordova). */
+      cordova?: QuasarCordovaConfiguration;
+    }> &
+    HasElectron<{
+      /** Electron specific [config](/quasar-cli/developing-electron-apps/configuring-electron). */
+      electron?: QuasarElectronConfiguration;
+    }>;
 }

@@ -1,5 +1,6 @@
 // This import enable module augmentation instead of module overwrite
 import { Options as ElectronPackagerOptions } from 'electron-packager';
+import { Configuration as ElectronBuilderConfiguration } from 'electron-builder';
 import 'quasar';
 import WebpackChain from 'webpack-chain';
 import { WebpackConfiguration } from '../helpers';
@@ -25,7 +26,7 @@ declare module 'quasar' {
     | 'all';
   type QuasarPackagerTargets = 'darwin' | 'win32' | 'linux' | 'mas' | 'all';
 
-  interface QuasarElectronConfiguration {
+  interface QuasarBaseElectronConfiguration {
     /** Webpack config object for the Main Process ONLY (`/src-electron/main-process/`) */
     extendWebpack?: (config: WebpackConfiguration) => void;
     /**
@@ -45,19 +46,43 @@ declare module 'quasar' {
      * Cross-compiling your binaries from one computer doesn’t really work with builder,
      *  or we haven’t found the recipe yet.
      */
-    bundler?: QuasarElectronBundlers;
+    // This property definition is here merely to avoid duplicating the TSDoc
+    // TODO: currently discriminated unions can only use
+    //  a literal value to apply the discrimination, we cannot
+    //  discriminate based on the absence of 'bundler' property.
+    // Because of this, 'bundler' cannot be absent to discriminate correctly
+    // See https://github.com/microsoft/TypeScript/issues/19691
+    // PS: note that the problem here is the absence of the property in a static context,
+    //  not its value; this means that `bundler: undefined` would discriminate correctly
+    //  (thanks to https://github.com/microsoft/TypeScript/pull/27695),
+    //  but not putting 'bundler' won't work, even if at runtime
+    //  (and when doing type guards) the two scenarios are the same
+    bundler: QuasarElectronBundlers;
+  }
+
+  interface QuasarPackagerElectronConfiguration
+    extends QuasarBaseElectronConfiguration {
+    bundler: 'packager';
 
     /**
      * Electron-packager options.
      * `dir` and `out` properties are overwritten by Quasar CLI to ensure the best results.
      */
-    // TODO: enable only when bundler isn't builder
     packager?: Omit<ElectronPackagerOptions, 'dir' | 'out'>;
+  }
+
+  interface QuasarBuilderElectronConfiguration
+    extends QuasarBaseElectronConfiguration {
+    bundler: 'builder';
 
     /** Electron-builder options */
-    // TODO: enable only when bundler isn't packager
     // TODO: builder typings are inside electron-builder package,
     //  I could not locate where it's installed into the monorepo
-    builder?: object;
+    //  so I installed the whole package as a devDependency for now
+    builder?: ElectronBuilderConfiguration;
   }
+
+  type QuasarElectronConfiguration =
+    | QuasarPackagerElectronConfiguration
+    | QuasarBuilderElectronConfiguration;
 }

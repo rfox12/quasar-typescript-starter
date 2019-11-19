@@ -173,7 +173,7 @@ export default configure((/*context*/) => ({
 
   // https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
   electron: {
-    // bundler: 'builder', // or 'packager'
+    bundler: 'packager', // or 'packager'
 
     extendWebpack(/* cfg */) {
       // do something with Electron main process Webpack cfg
