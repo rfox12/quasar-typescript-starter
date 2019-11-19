@@ -1,5 +1,5 @@
-import { RootStore } from './vuex';
 import { QSsrContext } from './boot';
+import { RootStore } from './vuex';
 
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files
@@ -13,16 +13,25 @@ declare module 'quasar' {
   // If the property is found we'll return the conditional type,
   //  otherwise an empty object is returned so that the result from unions
   //  with this type will be an unchanged type.
+  // TODO: this causes problems with intersections ('HasSsr<...> | HasStore<...>')
+  //  because in that case we want the "empty type" to be 'never' and disappear
+  //  from the final type.
+  // We allow to specify the "empty type" as a workaround for now
   type IsFeatureEnabled<
     O extends string,
-    T
-  > = QuasarFeatureFlags[O] extends true ? T : {};
+    T,
+    U = {}
+  > = QuasarFeatureFlags[O] extends true ? T : U;
 
-  // Used into Boot files and similar
-  type HasSsr = IsFeatureEnabled<'ssr', { ssrContext?: QSsrContext | null }>;
-  type HasStore = IsFeatureEnabled<'store', { store: RootStore }>;
+  type HasSsr<T, U = {}> = IsFeatureEnabled<'ssr', T, U>;
+  type HasStore<T, U = {}> = IsFeatureEnabled<'store', T, U>;
 
-  type HasCapacitor<T> = IsFeatureEnabled<'capacitor', T>;
-  type HasCordova<T> = IsFeatureEnabled<'cordova', T>;
-  type HasElectron<T> = IsFeatureEnabled<'electron', T>;
+  type HasSsrBootParams = HasSsr<{ ssrContext?: QSsrContext | null }>;
+  type HasStoreBootParams = HasStore<{ store: RootStore }>;
+
+  type HasPwa<T, U = {}> = IsFeatureEnabled<'pwa', T, U>;
+
+  type HasCapacitor<T, U = {}> = IsFeatureEnabled<'capacitor', T, U>;
+  type HasCordova<T, U = {}> = IsFeatureEnabled<'cordova', T, U>;
+  type HasElectron<T, U = {}> = IsFeatureEnabled<'electron', T, U>;
 }

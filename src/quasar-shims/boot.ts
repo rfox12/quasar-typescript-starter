@@ -1,5 +1,9 @@
-import { BootFileParams as BaseBootFileParams, HasSsr, HasStore } from 'quasar';
 import { Request, Response } from 'express';
+import {
+  BootFileParams as BaseBootFileParams,
+  HasSsrBootParams,
+  HasStoreBootParams
+} from 'quasar';
 import Vue, { ComponentOptions } from 'vue';
 
 // The only way to get full typings on `req` and `res`, except copying them over
@@ -20,8 +24,8 @@ export type BootFileParams = Omit<
   app: ComponentOptions<Vue>;
   urlPath: string;
   redirect: (url: string) => void;
-} & HasSsr &
-  HasStore;
+} & HasSsrBootParams &
+  HasStoreBootParams;
 
 export const boot = (
   callback: (params: BootFileParams) => void | Promise<void>

@@ -1,4 +1,4 @@
-import { HasSsr } from 'quasar';
+import { HasSsrBootParams } from 'quasar';
 import { VueConstructor } from 'vue';
 import Vuex from 'vuex';
 
@@ -11,7 +11,7 @@ import Vuex from 'vuex';
 
 type StoreBootParams = {
   Vue: VueConstructor;
-} & HasSsr;
+} & HasSsrBootParams;
 
 export default function({ Vue }: StoreBootParams) {
   Vue.use(Vuex);

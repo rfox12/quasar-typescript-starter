@@ -124,7 +124,7 @@ import 'quasar';
 
 declare module 'quasar' {
   interface QuasarFeatureFlags {
-    featureFlagName: true;
+    ssr: true; // The object key is the feature flag name
   }
 }
 ```
@@ -132,7 +132,8 @@ declare module 'quasar' {
 Then you can use `IsFeatureEnabled` to create a conditional type
 
 ```ts
-type HasSsr = IsFeatureEnabled<'ssr', { ssrContext?: QSsrContext | null }>;
+type HasSsr<T> = IsFeatureEnabled<'ssr', T>;
+type HasSsrBootParams = HasSsr<{ ssrContext?: QSsrContext | null }>;
 ```
 
 If the flag is enabled, the type will match the second type parameter, otherwise it will be an empty object.
@@ -141,8 +142,8 @@ This allow you to use it in unions without effects when the feature is disabled.
 ```ts
 type RouterBootParams = {
   Vue: VueConstructor;
-} & HasSsr &
-  HasStore;
+} & HasSsrBootParams &
+  HasStoreBootParams;
 ```
 
 **FEATURE FLAG FILES ARE NOT USER GENERATED: THEY SHOULD BE ADDED TO `/app/templates/<feature folder>` AND SCAFFOLDED BY THE CLI**
