@@ -81,8 +81,13 @@ declare module 'quasar' {
       add: string[];
       remove: string[];
     };
-    /** Add support for IE11+. */
-    // TODO: default?
+    /**
+     * Add support for IE11+.
+     *
+     * Ignored when in Capacitor, Cordova and Electron mode.
+     *
+     * @default false
+     */
     supportIE?: boolean;
     /** Add variables that you can use in index.template.html. */
     // TODO: not sure they can be only text, may be also numbers, boolean, objects, arrays, etc?

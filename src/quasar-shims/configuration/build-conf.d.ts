@@ -7,8 +7,7 @@ import { WebpackConfiguration } from '../helpers';
 
 declare module 'quasar' {
   // TODO: options descriptions has been copied from docs,
-  //  they should probably be kept only here and use these to generate
-  //  the ones used in the docs.
+  //  they should probably be kept only here, enhanced and used to generate the docs.
   interface QuasarStaticBuildConfiguration {
     /**
      * Add dependencies for transpiling with Babel (from node_modules, which are by default not transpiled).
@@ -105,7 +104,7 @@ declare module 'quasar' {
     /**
      * Source map [strategy](https://webpack.js.org/configuration/devtool/) to use.
      */
-    // TODO: default?
+    // TODO: which is the default?
     devtool: WebpackConfiguration['devtool'];
     /**
      * Add properties to `process.env` that you can use in your website/app JS code.
@@ -118,8 +117,9 @@ declare module 'quasar' {
     /**
      * Gzip the distributables.
      * Useful when the web server with which you are serving the content does not have gzip.
+     *
+     * @default false
      */
-    // TODO: default?
     gzip: boolean;
     /**
      * Use Webpack scope hoisting for slightly better runtime performance.
