@@ -1,11 +1,9 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
 import { TerserPluginOptions } from 'terser-webpack-plugin';
-import { Configuration as WebpackConfiguration } from 'webpack';
-// Applies `devServer` typings on `WebpackConfiguration.devServer`
-import 'webpack-dev-server';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import WebpackChain from 'webpack-chain';
+import { WebpackConfiguration } from '../helpers';
 
 declare module 'quasar' {
   // TODO: options descriptions has been copied from docs,

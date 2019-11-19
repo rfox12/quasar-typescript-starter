@@ -1,10 +1,8 @@
 // This import enable module augmentation instead of module overwrite
-import 'quasar';
 import { Options as ElectronPackagerOptions } from 'electron-packager';
-import { Configuration as WebpackConfiguration } from 'webpack';
+import 'quasar';
 import WebpackChain from 'webpack-chain';
-// Applies `devServer` typings on `WebpackConfiguration.devServer`
-import 'webpack-dev-server';
+import { WebpackConfiguration } from '../helpers';
 
 declare module 'quasar' {
   type QuasarElectronBundlers = 'builder' | 'packager';

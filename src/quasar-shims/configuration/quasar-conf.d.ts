@@ -1,9 +1,7 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
 import { QuasarAnimations, QuasarExtrasOptions } from '@quasar/extras';
-import { Configuration as WebpackConfiguration } from 'webpack';
-// Applies `devServer` typings on `WebpackConfiguration.devServer`
-import 'webpack-dev-server';
+import { WebpackConfiguration } from '../helpers';
 
 declare module 'quasar' {
   // TODO: allow only one instance per literal

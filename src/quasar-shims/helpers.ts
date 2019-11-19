@@ -1,3 +1,6 @@
+import { Configuration as BaseWebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+
 // See: https://stackoverflow.com/a/49936686/7931540
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
@@ -10,3 +13,8 @@ export type DeepPartial<T> = {
 // Evaluate to directly add https://github.com/krzkaczor/ts-essentials
 //  as dependency: some types provided from this package will be required
 //  in pretty much every minimally complex project using TS (like DeepPartial).
+
+// TODO: webpack declaration merging broke unexpectedly, this helper is a workaround
+export interface WebpackConfiguration extends BaseWebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
