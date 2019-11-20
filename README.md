@@ -184,7 +184,7 @@ Eg:
 Its also debatable if adding configuration examples still makes sense, when you have full intellisense support for the configuration file (of course some guidance comment will be useful anyway).
 It's also possible to get a cleaner conf file mobing links to the documentation in comments to properties TSDocs.
 
-There are a lot of `TODO` around to keep track of where is still possible to improve code quality or the overall autocomplete experience, but typings are already usable right now.
+There are a lot of `TODO` around to keep track of where is possible to improve code quality or the overall autocomplete experience, but configuration typings can be considered complete.
 
 ## Unanswered questions
 
