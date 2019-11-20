@@ -14,7 +14,7 @@ export type DeepPartial<T> = {
 //  as dependency: some types provided from this package will be required
 //  in pretty much every minimally complex project using TS (like DeepPartial).
 
-// TODO: webpack declaration merging broke unexpectedly, this helper is a workaround
+// TODO: webpack "devServer" declaration merging broke unexpectedly, this helper is a workaround
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27570#issuecomment-555529569
 export interface WebpackConfiguration extends BaseWebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;

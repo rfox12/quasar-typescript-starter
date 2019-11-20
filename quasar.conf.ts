@@ -1,7 +1,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-// TODO: TS conf file could be supported using nodemone and ts-node?
+// TODO: TS conf file could be supported using nodemon and ts-node?
 
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { configure } from 'src/quasar-shims/configuration';
@@ -70,13 +70,12 @@ export default configure((/*context*/) => ({
 
     // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
     extendWebpack(cfg) {
-      // TODO: check how to avoid not null assertion
+      // TODO: I'm not sure why 'cfg.module' here may be undefined, while it is not
+      //  in `chain.module`. I can easily override the type to force `module` to be defined
+      //  but I don't know if I'm missing some edge cases
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       cfg.module!.rules.push({
         enforce: 'pre',
-        // Removed vue from linting to prevent false positives
-        //  to block the build process
-        // test: /\.(js|vue)$/,
         test: /\.(js, ts, vue)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/,

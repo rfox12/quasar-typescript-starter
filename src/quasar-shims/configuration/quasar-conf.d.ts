@@ -5,7 +5,6 @@ import { WebpackConfiguration } from '../helpers';
 import { HasPwa, HasCapacitor, HasCordova, HasElectron } from 'quasar';
 
 declare module 'quasar' {
-  // TODO: allow only one instance per literal
   type QuasarAnimationsConfiguration = 'all' | QuasarAnimations[];
 
   // TODO: may have some more Quasar-defined customizations into `app/lib/quasar-config.js`
@@ -73,8 +72,6 @@ declare module 'quasar' {
      * What to import from [@quasar/extras](https://github.com/quasarframework/quasar/tree/dev/extras) package.
      * @example ['material-icons', 'roboto-font', 'ionicons-v4']
      */
-    // TODO: model 'roboto' fonts and 'mdi' icons exclusiveness
-    // TODO: allow only one instance per literal
     extras?: QuasarExtrasOptions[];
     /** Add/remove files/3rd party libraries to/from vendor chunk. */
     vendor?: {

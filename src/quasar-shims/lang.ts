@@ -7,9 +7,9 @@ declare module 'quasar' {
   // This could be changed to ISO codes reference directly,
   //  throwing error if the specified language could not be found.
   // Otherwise it could use declaration merging and make QuasarLanguage an enum
-  //  into which every language file its same language code.
+  //  into which every language file adds its language code.
   // Language files should also be typed using `lang.ts` interfaces
-  // This can also be generated from lang files names, being then used to reference them
+  // This can also be generated from lang files names at build time, being it used to reference them
   type QuasarLanguageCodes =
     | 'ar'
     | 'bg'
@@ -158,7 +158,7 @@ declare module 'quasar' {
       monthsShort: QuasarLanguageMonthTuple;
       firstDayOfWeek: number;
       format24h: boolean;
-      // Could not understand what exactly 'model' is, modeled after its usage
+      // TODO: Could not understand what exactly 'model' is, I typed it checking its usage
       headerTitle?: (
         date: Date,
         model: { year: number; month: number; day: number }

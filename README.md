@@ -196,3 +196,9 @@ There are a lot of `TODO` around to keep track of where is still possible to imp
 
 - Make Quasar webpack alias work nice with TS and VSCode Intellisense. Possibly without duplication (Webpack read from `tsconfig` or vice-versa)
 - Enable Capacitor/Cordova plugin typings also into `src` folder without adding the dependency two times
+
+## Notable pending issues
+
+- `workboxOptions` has not been typed because full typings are going to be added with v5 release, it's better to wait for them to complete it.
+- some literal arrays (eg. `extras`, `animations` and `framework.components/directives/plugins` configuration properties) would benefit from a "duplication" error, but such feature appears to be currently unfeasible in TS. The best I could find is [this workaround](https://stackoverflow.com/a/57021889), but it won't be applicable in our case.
+- pretty much because of the same limitations with interactions of array/tuples and literal types, it's not possible to enforce the mutual exclusiviness of some literal types into the same array (eg. allow to specify only one 'roboto' font or only one 'mdi' icon set).

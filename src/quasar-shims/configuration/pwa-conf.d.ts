@@ -70,24 +70,6 @@ declare module 'quasar' {
    * This is the place where you can configure
    * [Workbox](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin)’s
    * behavior and also tweak your `manifest.json`.
-   *
-   *
-   * @default
-   * ```typescript
-   * {
-   *  metaVariables: {
-   *    appleMobileWebAppCapable: 'yes';
-   *    appleMobileWebAppStatusBarStyle: 'default';
-   *    appleTouchIcon120: 'statics/icons/apple-icon-120x120.png';
-   *    appleTouchIcon180: 'statics/icons/apple-icon-180x180.png';
-   *    appleTouchIcon152: 'statics/icons/apple-icon-152x152.png';
-   *    appleTouchIcon167: 'statics/icons/apple-icon-167x167.png';
-   *    appleSafariPinnedTab: 'statics/icons/safari-pinned-tab.svg';
-   *    msapplicationTileImage: 'statics/icons/ms-icon-144x144.png';
-   *    msapplicationTileColor: '#000000';
-   *  };
-   * }
-   * ```
    */
   interface QuasarPwaConfiguration {
     workboxPluginMode?: 'GenerateSW' | 'InjectManifest';
@@ -95,12 +77,29 @@ declare module 'quasar' {
      * Full option list can be found
      *  [here](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_generatesw_config).
      */
-    // TODO: may be present only if 'workboxPluginMode' is 'GenerateSW'
     // TODO: not typed because it would be too long and Workbox is going to release
     //  v5 with typings included in some months.
     // See https://github.com/GoogleChrome/workbox/releases
+    // TODO: available options differ depending on workboxPluginMode,
+    //  when typings are added, this should result into a discrimination union
     workboxOptions?: object;
     manifest?: PwaManifestOptions;
+    /**
+     * @default
+     * ```typescript
+     * {
+     *    appleMobileWebAppCapable: 'yes';
+     *    appleMobileWebAppStatusBarStyle: 'default';
+     *    appleTouchIcon120: 'statics/icons/apple-icon-120x120.png';
+     *    appleTouchIcon180: 'statics/icons/apple-icon-180x180.png';
+     *    appleTouchIcon152: 'statics/icons/apple-icon-152x152.png';
+     *    appleTouchIcon167: 'statics/icons/apple-icon-167x167.png';
+     *    appleSafariPinnedTab: 'statics/icons/safari-pinned-tab.svg';
+     *    msapplicationTileImage: 'statics/icons/ms-icon-144x144.png';
+     *    msapplicationTileColor: '#000000';
+     * }
+     * ```
+     */
     metaVariables?: {
       appleMobileWebAppCapable: string;
       appleMobileWebAppStatusBarStyle: string;
