@@ -19,7 +19,7 @@ declare module 'quasar' {
     version?: string;
     /** If not present, will look for `package.json > description` */
     description?: string;
-    // TODO: default?
+    // TODO: which is the default?
     androidVersionCode?: string;
     /**
      * Enable Xcode modern build even if after considering iOS-Cordova issues.

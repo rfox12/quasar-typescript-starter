@@ -52,9 +52,6 @@ export default configure((/*context*/) => {
       //            (not treeshaking Quasar; biggest bundle size; convenient)
       all: 'auto',
 
-      components: [],
-      directives: [],
-
       // Quasar plugins
       plugins: []
     },
