@@ -28,6 +28,7 @@ Into `tsconfig.json`:
 - `"experimentalDecorators": true` is needed only if using `vue-class-component` component syntax.
 - `"resolveJsonModule": true` is needed only if importing JSON files into TS code.
 - `"esModuleInterop": true` is needed to better manage non-TS libraries.
+- `"skipLibCheck": true` is required when using `electron-builder`, which exports its typings without the dev dependencies ones, breaking typechecking for consuming apps. An issue should probably be opened on their repo.
 - `"types": [ "quasar" ]` is needed because "the actual import of the Quasar components is done in generated code that for some reason the VS Code is not picking up on consistently (it may be b/c that code is generated as JS not TS)" (cit Kerry on Discord, [reference](https://github.com/quasarframework/app-extension-typescript/pull/39)).
 - `"exclude": [ ... , "/dist"]` is needed or some files which has been copied over for any reason during a build process (eg. a `.d.ts` file inside `src-ssr` folder) would apply their types even when original files has been updated.
 
