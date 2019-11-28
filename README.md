@@ -76,6 +76,10 @@ In those cases, type-checking errors arise (unless `skipLibCheck` is enabled) an
 
 [This issue](https://github.com/microsoft/types-publisher/issues/81) explains well the two sides of the problem, while the only solution seems to be adding `@types/...` as `dependencies` too.
 Hovever, this can sometimes lead to errors anyway, like in the `fork-ts-checker-webpack-plugin` issue linked in the previous sections.
+Another way is to write them up both as `devDependencies` and `peerDependencies`, leaving the end user to decide which types to add. I haven't tryed this road yet.
+
+Note that not **all** `@types/...` must be placed into `dependencies`, only the ones which could be used by the developers.
+But until Quasar codebase migrates to TS, the only installed `@types/...` will probably be the ones providing types for developers.
 
 ## Component scaffolding
 
