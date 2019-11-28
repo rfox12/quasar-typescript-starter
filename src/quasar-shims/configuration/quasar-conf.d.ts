@@ -1,6 +1,6 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
-import { QuasarAnimations, QuasarExtrasOptions } from '@quasar/extras';
+import { QuasarAnimations, QuasarIconSets, QuasarFonts } from '@quasar/extras';
 import { WebpackConfiguration } from '../helpers';
 import { HasPwa, HasCapacitor, HasCordova, HasElectron } from 'quasar';
 
@@ -72,7 +72,7 @@ declare module 'quasar' {
      * What to import from [@quasar/extras](https://github.com/quasarframework/quasar/tree/dev/extras) package.
      * @example ['material-icons', 'roboto-font', 'ionicons-v4']
      */
-    extras?: QuasarExtrasOptions[];
+    extras?: (QuasarIconSets | QuasarFonts)[];
     /** Add/remove files/3rd party libraries to/from vendor chunk. */
     vendor?: {
       add: string[];

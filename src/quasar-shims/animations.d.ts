@@ -1,5 +1,8 @@
 // These animations are taken from `@quasar/extras/animate/animate-list`
 // There is probably a better way to extract them from that file
+// It's also possible to get the same types, when codebase will be migrated to TS,
+//  by setting the array "as const" and using an helper type
+// See https://github.com/microsoft/TypeScript/issues/28046#issuecomment-480516434
 declare module '@quasar/extras' {
   type QuasarGeneralAnimations =
     | 'bounce'

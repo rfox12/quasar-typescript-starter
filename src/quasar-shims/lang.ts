@@ -104,12 +104,12 @@ declare module 'quasar' {
     | 'hr'
     | 'undo'
     | 'redo'
-    | 'header1'
-    | 'header2'
-    | 'header3'
-    | 'header4'
-    | 'header5'
-    | 'header6'
+    | 'heading1'
+    | 'heading2'
+    | 'heading3'
+    | 'heading4'
+    | 'heading5'
+    | 'heading6'
     | 'paragraph'
     | 'code'
     | 'size1'
@@ -119,7 +119,8 @@ declare module 'quasar' {
     | 'size5'
     | 'size6'
     | 'size7'
-    | 'defaultFont';
+    | 'defaultFont'
+    | 'viewSource';
 
   type QuasarLanguageTreeLabel = 'noNodes' | 'noResults';
   type QuasarLanguageDayTuple = [

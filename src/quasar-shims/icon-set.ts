@@ -20,8 +20,6 @@ declare module '@quasar/extras' {
     | 'themify';
 
   type QuasarFonts = 'roboto-font' | 'roboto-font-latin-ext';
-
-  type QuasarExtrasOptions = QuasarIconSets | QuasarFonts;
 }
 
 declare module 'quasar' {
@@ -63,10 +61,11 @@ declare module 'quasar' {
     | 'hr'
     | 'undo'
     | 'redo'
-    | 'header'
+    | 'heading'
     | 'code'
     | 'size'
-    | 'font';
+    | 'font'
+    | 'viewSource';
   type QuasarIconSetExpansionItem = 'icon' | 'denseIcon';
   type QuasarIconSetFab = 'icon' | 'activeIcon';
   type QuasarIconSetField = 'clear' | 'error';

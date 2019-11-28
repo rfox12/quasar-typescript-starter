@@ -60,7 +60,7 @@ The best way I found so far to cover this scenario has been suggested by Kerry a
 ## New Quasar types
 
 All definitions inside `quasar-shims` are types which need to be added into core typings.
-Some of those files are helpful but a pain in the ass to maintain, because manually derived from JSON files (see `icon-set.ts` and `lang.ts`).
+Some of those files are helpful but a pain in the ass to maintain, because manually derived from plain JS objects (see `icon-set.ts` and `lang.ts`).
 It would be easier if JS files could be converted to be `.ts` files, in which case we could rely on TS inference and declaration merging to some extent to get automatic typings.
 
 Some types are rarely used (only when unit testing in my experience) and you can safely avoid to add them if keeping their types in sync is too troublesome, leaving `any` if there is no way to derive them automatically.
