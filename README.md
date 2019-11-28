@@ -36,7 +36,7 @@ Into `tsconfig.json`:
 
 Into `quasar.config.json`:
 
-- `fork-ts-checker-webpack-plugin` is used by default without asking to the end-user (in the app-extension a prompt was shown). As I have understood this solution is the fastest because it runs the type checker in a parallel process, but require the user to properly setup its `tsconfig.json` to include all files to check, while the original `ts-loader` relies on webpack's module resolutions to know which files should be checked and must wait for webpack to finish its job. [Reference](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). There seems to be [a regression](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/339) with new versions of the plugin, whose typings relies on `webpack` and `tapable` ones. I manually added `@types/webpack` and `@types/tapable` as devDependencies to workaround it.
+- `fork-ts-checker-webpack-plugin` is used by default without asking to the end-user (in the app-extension a prompt was shown). As I have understood this solution is the fastest because it runs the type checker in a parallel process, but require the user to properly setup its `tsconfig.json` to include all files to check, while the original `ts-loader` relies on webpack's module resolutions to know which files should be checked and must wait for webpack to finish its job. [Reference](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). There seems to be [a regression](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/339) with new versions of the plugin, whose typings relies on `webpack` and `tapable` ones. I manually added `@types/webpack` and `@types/tapable` as `devDependencies` to workaround it.
 
 ## VSCode config
 
@@ -68,6 +68,14 @@ Some types are rarely used (only when unit testing in my experience) and you can
 This principle works the same with components of course: Quasar components use render functions instead of SFC, so switching to native TS support using `.ts` files is relatively easy and removes the tooling process to manually sync typings.
 
 It should be noted that, as of today, [it has been stated](https://twitter.com/Naisstep/status/1185232738602893316) by the core team that in Vue3 template-based components will be _faster_ than render-function-based components most of the times.
+
+Some types used in Quasar must be imported from third party libraries.
+This isn't a problem when typings are provided directly from the same code library, because as `dependencies` they will be available when the library is installed.
+The case is different when types are in separated `@types/...` packages, which are usually saved as `devDependencies` and as such left out from `yarn install` of library consumers.
+In those cases, type-checking errors arise (unless `skipLibCheck` is enabled) and the end user have no access to the used types.
+
+[This issue](https://github.com/microsoft/types-publisher/issues/81) explains well the two sides of the problem, while the only solution seems to be adding `@types/...` as `dependencies` too.
+Hovever, this can sometimes lead to errors anyway, like in the `fork-ts-checker-webpack-plugin` issue linked in the previous sections.
 
 ## Component scaffolding
 
