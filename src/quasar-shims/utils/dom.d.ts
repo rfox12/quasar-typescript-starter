@@ -1,9 +1,11 @@
 import 'quasar';
 
 declare module 'quasar' {
+  // WAITING-FOR-MERGE
   // `css` has been narrowed
   function css(el: Element, css: Partial<CSSStyleDeclaration>): void;
 
+  // WAITING-FOR-MERGE
   // `css` has been narrowed
   function cssBatch(
     elements: Element[],

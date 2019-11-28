@@ -2,17 +2,33 @@ import 'quasar';
 import { BuildDateOptions, DateUnitOptions, DateLocale, clone } from 'quasar';
 
 declare module 'quasar' {
-  // Being the two interfaces exactly the same (and provided to the same functions too)
-  //  you can simplify one of them as a type alias (or use a single DateOptions interface for all methods)
-  type ModifyDateOptions = BuildDateOptions;
+  // TODO:
+  // `BuildDateOptions` and `ModifyDateOptions` differ only by the `date`/`days` property.
+  // But inside `getChange`, `days` seems to be transformed into `date` anyway,
+  //  so this can be reduced to a common `DateOptions` for all methods
+  interface DateOptions {
+    milliseconds?: number;
+    seconds?: number;
+    minutes?: number;
+    hours?: number;
+    month?: number;
+    year?: number;
+  }
 
+  interface BuildDateOptions extends DateOptions {
+    date?: number;
+  }
+
+  interface ModifyDateOptions extends DateOptions {
+    days?: number;
+  }
+
+  // WAITING-FOR-MERGE
   function isValid(date: number | string): boolean;
-  // FIXME: there is a random `return` into `adjustDate` which is probably meant to be a `continue`
-  // and would make `buildDate` to return `void` if `month` is set.
-  // It's not clear why `month` has a branch for itself which would not use the `UTC` function version
-  function buildDate(options: BuildDateOptions, utc?: boolean): Date;
+  // WAITING-FOR-MERGE
   // There was a redundant `| number` in parameter type
   function getDayOfWeek(date: Date | number | string): number;
+  // WAITING-FOR-MERGE
   // By your usage `to` and `from` are both wrapped with a `new Date` call,
   //  their type can be relaxed to match the one of the first parameter
   function isBetweenDates(
@@ -33,16 +49,19 @@ declare module 'quasar' {
     subtract: Date | number | string,
     unit?: DateUnitOptions
   ): number;
+  // WAITING-FOR-MERGE
   // Stricter input type, more precise output
   function inferDateFormat(
     date: Date | number | string
   ): 'date' | 'number' | 'string';
+  // WAITING-FOR-MERGE
   // `min` and `max` are optional in the implementation function, it has been reflected into the signature
   function getDateBetween(
     date: Date | number | string,
     min?: Date | number | string,
     max?: Date | number | string
   ): Date;
+  // WAITING-FOR-MERGE
   // `unit` is now stricter. Like `getDateDiff`, but here unit switch cases are already singular words
   function isSameDate(
     date: Date | number | string,
@@ -60,6 +79,7 @@ declare module 'quasar' {
     locale?: DateLocale,
     __forcedYear?: number
   ): string;
+  // WAITING-FOR-MERGE
   // Right now `clone` implementation is open to a lot of edge cases,
   //  because it will return as-is any value which is not a Date,
   //  also Objects, Arrays, etc which are passed by reference.

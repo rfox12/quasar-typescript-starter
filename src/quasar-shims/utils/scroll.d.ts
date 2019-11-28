@@ -1,5 +1,6 @@
 import 'quasar';
 
+// WAITING-FOR-MERGE
 // As suggested by Kerry, all `Element` as been updated to `HTMLElement`
 // See https://discordapp.com/channels/616161554433572894/616164014103461899/636262196275445770
 declare module 'quasar' {

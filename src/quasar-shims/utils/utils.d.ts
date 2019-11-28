@@ -1,6 +1,7 @@
 import 'quasar';
 import { debounce } from 'quasar/dist/types/utils';
 
+// WAITING-FOR-MERGE
 declare module 'quasar' {
   // Now returns same function type
   function debounce<F extends (...args: any[]) => any>(
