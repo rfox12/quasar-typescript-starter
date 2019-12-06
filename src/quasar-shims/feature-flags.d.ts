@@ -4,6 +4,9 @@ import { RootStore } from './vuex';
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files
   //  located into feature folders.
+  // We tryed to narrow the index type, but apparently this works only for mapped types
+  //  and not for interfaces
+  // See https://github.com/microsoft/TypeScript/issues/24220#issuecomment-449325451
   // We can obtain the same result by generating and keeping in sync a `config.d.ts`
   //  file with feature options set to true or false, but it's much more messy IMO.
   interface QuasarFeatureFlags {
@@ -17,6 +20,8 @@ declare module 'quasar' {
   //  because in that case we want the "empty type" to be 'never' and disappear
   //  from the final type.
   // We allow to specify the "empty type" as a workaround for now
+  // See https://discordapp.com/channels/616161554433572894/616164014103461899/646307210221191180
+  // See https://discordapp.com/channels/616161554433572894/616164014103461899/646407552099287041
   type IsFeatureEnabled<
     O extends string,
     T,
