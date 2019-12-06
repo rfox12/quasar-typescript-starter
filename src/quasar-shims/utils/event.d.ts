@@ -1,14 +1,17 @@
 import 'quasar';
 
 declare module 'quasar' {
-  // TODO: Proposed `ListenOpts` version is more adhering to the current implementation,
-  //  but depending on where it used and how, you could still prefer previous one.
-  // This interface and `listenOpts` are meant to be used by the developer
-  //  or only for internal usage? If it's the first case, which are the use cases?
+  // Allow using `passive` and `notPassive` with `removeEventListener`
+  // See https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener#Matching_event_listeners_for_removal
+  // See https://github.com/quasarframework/quasar/pull/5729#issuecomment-559588257
+  interface RemoveEventListenerFix {
+    capture: undefined;
+  }
+
   interface ListenOpts {
     hasPassive: boolean;
-    passive: undefined | { passive: true };
-    notPassive: undefined | { passive: false };
+    passive: undefined | ({ passive: true } & RemoveEventListenerFix);
+    notPassive: undefined | ({ passive: false } & RemoveEventListenerFix);
     passiveCapture: true | { passive: true; capture: true };
     notPassiveCapture: true | { passive: false; capture: true };
   }
