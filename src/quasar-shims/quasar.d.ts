@@ -10,6 +10,7 @@ import { PluginObject } from 'vue';
  * because they are in conflict with some of inner declarations
  */
 
+// WAITING-FOR_MERGE - https://github.com/quasarframework/quasar/pull/5735
 export interface QuasarPluginOptions
   extends Omit<BaseQuasarPluginOptions, 'lang' | 'iconSet'> {
   lang: QuasarLanguage;

@@ -4,6 +4,7 @@ import '@quasar/extras';
 import 'quasar';
 import { StringDictionary } from './utils';
 
+// WAITING-FOR_MERGE - https://github.com/quasarframework/quasar/pull/5735
 declare module '@quasar/extras' {
   // This can also be generated from icon sets files names, being then used to reference them
   // But in that case they would need to be separated from fonts extras and put into a dedicated folder
@@ -22,6 +23,7 @@ declare module '@quasar/extras' {
   type QuasarFonts = 'roboto-font' | 'roboto-font-latin-ext';
 }
 
+// WAITING-FOR_MERGE - https://github.com/quasarframework/quasar/pull/5735
 declare module 'quasar' {
   type QuasarIconSetType = 'positive' | 'negative' | 'info' | 'warning';
   type QuasarIconSetArrow = 'up' | 'right' | 'down' | 'left' | 'dropdown';

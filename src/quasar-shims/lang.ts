@@ -2,6 +2,7 @@
 import 'quasar';
 import { StringDictionary } from './utils';
 
+// WAITING-FOR_MERGE - https://github.com/quasarframework/quasar/pull/5735
 declare module 'quasar' {
   // TODO: these are all languages currently available
   // This could be changed to ISO codes reference directly,
