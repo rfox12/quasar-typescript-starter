@@ -209,6 +209,7 @@ There are a lot of `TODO` around to keep track of where is possible to improve c
 
 - Make Quasar webpack alias work nice with TS and VSCode Intellisense. Possibly without duplication (Webpack read from `tsconfig` or vice-versa)
 - Enable Capacitor/Cordova plugin typings also into `src` folder without adding the dependency two times
+- TS tips boxes into documentation
 
 ## Notable pending issues
 
