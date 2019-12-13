@@ -215,9 +215,6 @@ There are a lot of `TODO` around to keep track of where is possible to improve c
 - Enable Capacitor/Cordova plugin typings also into `src` folder without adding the dependency two times
 - TS tips boxes into documentation
 - Add events types to generation
-- add `copyToClipboard`
-- check https://github.com/quasarframework/app-extension-typescript/issues/37
-- `QuasarLanguageCodes` should be generated from lang files names at build time, being it always used to reference one of them
 
 ## Notable pending issues
 
