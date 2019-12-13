@@ -1,6 +1,6 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
-import { QuasarIconSets } from '@quasar/extras';
+import { QuasarIconSets, QuasarLanguageCodes } from 'quasar';
 import { DeepPartial } from '../helpers';
 
 declare module 'quasar' {
