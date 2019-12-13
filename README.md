@@ -63,7 +63,7 @@ All definitions inside `quasar-shims` are types which need to be added into core
 Some of those files are helpful but a pain in the ass to maintain, because manually derived from plain JS objects (see `icon-set.ts` and `lang.ts`).
 It would be easier if JS files could be converted to be `.ts` files, in which case we could rely on TS inference and declaration merging to some extent to get automatic typings.
 
-Some types are rarely used (only when unit testing in my experience) and you can safely avoid to add them if keeping their types in sync is too troublesome, leaving `any` if there is no way to derive them automatically.
+It's also possible to automatically derive `QuasarXxxAnimations` types when codebase will be migrated to TS, by setting the array "as const" and using an [helper type](https://github.com/microsoft/TypeScript/issues/28046#issuecomment-480516434).
 
 This principle works the same with components of course: Quasar components use render functions instead of SFC, so switching to native TS support using `.ts` files is relatively easy and removes the tooling process to manually sync typings.
 
@@ -211,6 +211,9 @@ There are a lot of `TODO` around to keep track of where is possible to improve c
 - Enable Capacitor/Cordova plugin typings also into `src` folder without adding the dependency two times
 - TS tips boxes into documentation
 - Add events types to generation
+- add `copyToClipboard`
+- check https://github.com/quasarframework/app-extension-typescript/issues/37
+- `QuasarLanguageCodes` should be generated from lang files names at build time, being it always used to reference one of them
 
 ## Notable pending issues
 
