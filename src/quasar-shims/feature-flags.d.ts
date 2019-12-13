@@ -1,6 +1,7 @@
 import { QSsrContext } from './boot';
 import { RootStore } from './vuex';
 
+// WAITING-FOR-MERGE https://github.com/quasarframework/quasar/pull/5815
 declare module 'quasar' {
   // We rely on declaration merging augmenting QuasarConf with declaration files
   //  located into feature folders.
@@ -13,15 +14,6 @@ declare module 'quasar' {
     [index: string]: boolean;
   }
 
-  // If the property is found we'll return the conditional type,
-  //  otherwise an empty object is returned so that the result from unions
-  //  with this type will be an unchanged type.
-  // TODO: this causes problems with intersections ('HasSsr<...> | HasStore<...>')
-  //  because in that case we want the "empty type" to be 'never' and disappear
-  //  from the final type.
-  // We allow to specify the "empty type" as a workaround for now
-  // See https://discordapp.com/channels/616161554433572894/616164014103461899/646307210221191180
-  // See https://discordapp.com/channels/616161554433572894/616164014103461899/646407552099287041
   type IsFeatureEnabled<
     O extends string,
     T,

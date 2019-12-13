@@ -161,6 +161,10 @@ type RouterBootParams = {
 
 **FEATURE FLAG FILES ARE NOT USER GENERATED: THEY SHOULD BE ADDED TO `/app/templates/<feature folder>` AND SCAFFOLDED BY THE CLI**
 
+Because unions ('HasSsr<...> | HasStore<...>') "empty type" is `never` and not `{}` (as it is with intersections) and we don't know (yet) how to automatically determine the "empty type" to return, for now we allow to specify it.
+See https://discordapp.com/channels/616161554433572894/616164014103461899/646307210221191180
+See https://discordapp.com/channels/616161554433572894/616164014103461899/646407552099287041
+
 ## Capacitor/Cordova
 
 While Electron dependencies are added on root-level `package.json`, Capacitor (and Cordova, as I have understood) require to install their plugins into their inner `package.json`.
