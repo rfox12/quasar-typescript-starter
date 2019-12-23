@@ -1,8 +1,15 @@
 // This import enable module augmentation instead of module overwrite
 import 'quasar';
-import { QuasarAnimations, QuasarIconSets, QuasarFonts } from '@quasar/extras';
 import { WebpackConfiguration } from '../helpers';
-import { HasPwa, HasCapacitor, HasCordova, HasElectron } from 'quasar';
+import {
+  HasPwa,
+  HasCapacitor,
+  HasCordova,
+  HasElectron,
+  QuasarAnimations,
+  QuasarIconSets,
+  QuasarFonts
+} from 'quasar';
 
 declare module 'quasar' {
   type QuasarAnimationsConfiguration = 'all' | QuasarAnimations[];
