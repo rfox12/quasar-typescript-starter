@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
-import { boot } from 'src/quasar-shims/boot';
+import { boot } from 'quasar';
+import 'vue';
 
 declare module 'vue/types/vue' {
   interface Vue {

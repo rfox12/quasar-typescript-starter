@@ -1,5 +1,6 @@
+import { boot } from 'quasar';
 import messages from 'src/i18n';
-import { boot } from 'src/quasar-shims/boot';
+import 'vue';
 import VueI18n from 'vue-i18n';
 
 declare module 'vue/types/vue' {

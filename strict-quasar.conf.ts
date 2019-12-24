@@ -1,16 +1,13 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-// TODO: TS conf file could be supported using nodemon and ts-node?
-
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import { configure } from 'src/quasar-shims/configuration';
-import { QuasarConfiguration } from 'quasar';
+import { QuasarConf, configure } from 'quasar';
 
 // This configuration demonstrate how to enable strict configuration check.
 // Invalid or unknown properties will throw error using this mode.
 export default configure((/*context*/) => {
-  const config: QuasarConfiguration = {
+  const config: QuasarConf = {
     // Quasar looks for *.js files by default
     sourceFiles: {
       router: 'src/router/index.ts',
@@ -53,7 +50,7 @@ export default configure((/*context*/) => {
       all: 'auto',
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Meta']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -174,7 +171,7 @@ export default configure((/*context*/) => {
 
     // https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      bundler: 'packager', // or 'packager'
+      bundler: 'packager', // or 'builder'
 
       extendWebpack(/* cfg */) {
         // do something with Electron main process Webpack cfg

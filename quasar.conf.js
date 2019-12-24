@@ -10,8 +10,9 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { configure } = require('quasar');
 
-module.exports = function(/* ctx */) {
+module.exports = configure(function(/* ctx */) {
   return {
     // Quasar looks for *.js files by default
     sourceFiles: {
@@ -129,7 +130,7 @@ module.exports = function(/* ctx */) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        // name: 'Quasar App',
+        name: 'Quasar App',
         // short_name: 'Quasar App',
         // description: 'A Quasar Framework app',
         display: 'standalone',
@@ -176,7 +177,7 @@ module.exports = function(/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      // bundler: 'builder', // or 'packager'
+      bundler: 'packager', // or 'builder'
 
       extendWebpack(/* cfg */) {
         // do something with Electron main process Webpack cfg
@@ -200,4 +201,4 @@ module.exports = function(/* ctx */) {
       }
     }
   };
-};
+});
