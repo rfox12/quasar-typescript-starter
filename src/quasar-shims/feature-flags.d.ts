@@ -1,5 +1,5 @@
-import { QSsrContext } from './boot';
 import { RootStore } from './vuex';
+import { QSsrContext } from 'quasar';
 
 // WAITING-FOR-MERGE https://github.com/quasarframework/quasar/pull/5815
 declare module 'quasar' {
