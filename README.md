@@ -100,8 +100,8 @@ I can produce more complex examples if needed.
 
 ## Boot files
 
-Boot file should return code wrapped into a callback function given as parameter of `boot(...)` function (actual name isn't important, can be changed) to get parameter typings, much like when defining a component for TS you are required to wrap it into a `Vue.extend(...)` or [`createComponent(...)`](https://github.com/vuejs/composition-api/blob/bb1e0309ae943bf92ac92fab670d63b9e288e8f3/src/component/component.ts#L73-L95).
-`boot(...)` won't actually do anything and just return the provided callback. It should be added to Quasar helpers to allow `import { boot } from 'quasar`, while right now I'm forced to do `import { boot } from 'src/quasar-shims/boot'`.
+Boot file should return a callback function provided to a `boot(...)` helper which enhance its typings, much like when defining a component for TS you are required to wrap it into a `Vue.extend(...)` or [`createComponent(...)`](https://github.com/vuejs/composition-api/blob/bb1e0309ae943bf92ac92fab670d63b9e288e8f3/src/component/component.ts#L73-L95).
+`boot(...)` is a no-op function and just returns the provided callback. You can import it via using `import { boot } from 'quasar'`.
 Note that it's return signature is `void | Promise<void>` to support async boot files: in those cases `async` should be used like `export default boot(async () => {...})`.
 
 `BootFileParams` into core typings should be updated accordingly to the definition into `src/quasar-shims/boot`.
@@ -173,21 +173,19 @@ Triple-slash directive seems to not work in this scenario, only deep-import does
 
 ## Configuration file
 
-`quasar.conf` file is a big beast, talking about typings.
-I had to split many parts in their standalone files, yet you can get lost in them pretty easily.
+`quasar.conf.js` is a big beast, talking about typings.
+I split many parts in their standalone files, yet you can get lost in them pretty easily.
 With its intricated maze of options, it requires many dependencies on `@type/**` libreries to get nearly-full type safety.
 
-There are **a lot** of business rules I don't think I'll be able to model with TS alone if underlying code doesn't change, and yet I don't know exactly how code will need to change to get easier and maintenable typings (for now).
+There are some business rules I don't think can be modeled with TS typings if underlying code doesn't change, yet I don't know exactly how code will need to change to get easier and maintenable typings (for now).
 
-Type inference is done as always with a noop function (`configure`) which takes the configuration callback and returns it but with typings applied.
-Using the helper is possible to apply typings to `quasar.conf.js` too, but we could think about making configuration file a `.ts` file too.
+Type inference is done with a noop function (`configure`) which takes the configuration callback function and returns it but with typings applied.
+Using the helper is possible to get intellisense and autocomplete to `quasar.conf.js`, but you'll need to use a `.ts` configuration file to have strict type-checking (currently not supported by Quasar core which expects a JS file).
 
-I haven't dig down the latter road yet (especially when in watch mode), but _I think_ that using `tsc` compiler in watch mode or relying on a `ts-node` could be some options to check out.
+I haven't dig down the latter road yet (especially when in watch mode), but _I think_ that using `tsc` compiler in watch mode or relying on a `ts-node` could be some paths to follow to allow its usage.
 
-Most of the typings I made are added by augmenting `quasar` module.
-
-Because of how TS typings system works, types applied by `configure` function are open types, which means that they accept more properties than the ones defined on their interfaces without firing an error.
-You can check this loose type check into `quasar.conf.js` or `loose-quasar.conf.ts` file.
+Because of how TS typings system works, types applied by `configure` function are open types, which means that they won't fire an error if more properties than the ones defined on their interfaces are provided (or their types are wrong).
+You can check this into `quasar.conf.js` or `loose-quasar.conf.ts` file.
 
 Getting stricter type check require an easy workaround, you can see it in action into `strict-quasar.conf.ts`.
 In this version, additional properties will fire an error, this means that you cannot add "configuration examples" which are not valid.
@@ -197,9 +195,9 @@ Eg:
 - adding both `packager` and `builder` properties into `electron` property will throw an error.
 
 Its also debatable if adding configuration examples still makes sense, when you have full intellisense support for the configuration file (of course some guidance comment will be useful anyway).
-It's also possible to get a cleaner conf file by moving to TSDocs the links currently in comments and pointing to the documentation.
+It's also possible to get a cleaner conf file by moving to TSDocs the links currently in comments which are pointing to the documentation.
 
-There are a lot of `TODO` around to keep track of where is possible to improve code quality or the overall autocomplete experience, but configuration typings are already usable.
+I left around some `TODO` references to keep track of where is possible to improve code quality or the overall autocomplete experience.
 
 ## Unanswered questions
 
