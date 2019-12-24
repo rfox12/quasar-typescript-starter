@@ -72,7 +72,6 @@ export default configure((/*context*/) => {
         //  in `chain.module`. I can easily override the type to force `module` to be defined
         //  but I don't know if I'm missing some edge cases
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         cfg.module!.rules.push({
           enforce: 'pre',
           test: /\.(js, ts, vue)$/,
