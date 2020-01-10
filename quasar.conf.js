@@ -76,18 +76,18 @@ module.exports = function(/* ctx */) {
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          // Removed vue from linting to prevent false positives
-          //  to block the build process
-          // test: /\.(js|vue)$/,
-          test: /\.(js, ts, vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
-          }
-        });
+        if (process.env.NODE_ENV === 'production') {
+          // linting is slow in TS projects, we execute it only for production builds
+          cfg.module.rules.push({
+            enforce: 'pre',
+            test: /\.(js, ts, vue)$/,
+            loader: 'eslint-loader',
+            exclude: /node_modules/,
+            options: {
+              formatter: require('eslint').CLIEngine.getFormatter('stylish')
+            }
+          });
+        }
       },
       chainWebpack(chain) {
         chain.resolve.extensions.add('.ts').add('.tsx');
