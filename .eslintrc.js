@@ -28,9 +28,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
 
-    // `plugin:vue/essential` by default, consider switching to `plugin:vue/strongly-recommended`
-    //  or `plugin:vue/recommended` for stricter rules.
-    // See https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // https://eslint.vuejs.org/rules/#priority-a-essential-error-prevention
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules
     'plugin:vue/essential',
 
     // Usage with Prettier, provided by 'eslint-config-prettier'.
@@ -43,8 +42,8 @@ module.exports = {
   plugins: [
     // Required to apply rules which need type information
     '@typescript-eslint',
-    // Required to lint *.vue files
-    // See https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
+    // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
+    // required to lint *.vue files
     'vue'
     // Prettier has not been included as plugin to avoid performance impact
     // See https://github.com/typescript-eslint/typescript-eslint/issues/389#issuecomment-509292674
@@ -52,10 +51,12 @@ module.exports = {
   ],
 
   globals: {
-    ga: true, // Google Analytics
-    cordova: true,
-    __statics: true,
-    process: true
+    'ga': true, // Google Analytics
+    'cordova': true,
+    '__statics': true,
+    'process': true,
+    'Capacitor': true,
+    'chrome': true
   },
 
   // add your custom rules here
@@ -63,13 +64,10 @@ module.exports = {
     'prefer-promise-reject-errors': 'off',
     quotes: ['warn', 'single'],
 
-    // allow console.log during development only
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
-    // Custom
-    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+    // TypeScript
     '@typescript-eslint/explicit-function-return-type': 'off'
   }
-};
+}

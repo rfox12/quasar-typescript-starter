@@ -1,12 +1,7 @@
 {
-  "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.experimental.templateInterpolationService": true,
+  "vetur.format.enable": false,
   "vetur.validation.template": false,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    { "language": "vue", "autoFix": true }
-  ],
+  "vetur.experimental.templateInterpolationService": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
