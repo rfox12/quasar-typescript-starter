@@ -1,31 +1,20 @@
-/* eslint-env node */
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-/*
- * This file runs in a Node context (it's NOT transpiled by Babel), so use only
- * the ES6 features that are supported by your Node version. https://node.green/
- */
-
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
-module.exports = function(/* ctx */) {
+module.exports = function (ctx) {
   return {
-    // Quasar looks for *.js files by default
-    sourceFiles: {
-      router: 'src/router/index.ts',
-      store: 'src/store/index.ts'
-    },
-
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
-    boot: ['composition-api', 'i18n', 'axios'],
+    boot: [
+      'i18n',
+      'axios'
+    ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
-    css: ['app.css'],
+    css: [
+      'app.css'
+    ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -76,36 +65,16 @@ module.exports = function(/* ctx */) {
       // extractCSS: false,
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-      extendWebpack(cfg) {
-        if (process.env.NODE_ENV === 'production') {
-          // linting is slow in TS projects, we execute it only for production builds
-          cfg.module.rules.push({
-            enforce: 'pre',
-            test: /\.(js, ts, vue)$/,
-            loader: 'eslint-loader',
-            exclude: /node_modules/,
-            options: {
-              formatter: require('eslint').CLIEngine.getFormatter('stylish')
-            }
-          });
-        }
-      },
-      chainWebpack(chain) {
-        chain.resolve.extensions.add('.ts').add('.tsx');
-        chain.module
-          .rule('typescript')
-          .test(/\.tsx?$/)
-          .use('ts-loader')
-          .loader('ts-loader')
-          .options({
-            appendTsSuffixTo: [/\.vue$/],
-            // Type checking is handled by fork-ts-checker-webpack-plugin
-            transpileOnly: true
-          });
-        chain
-          .plugin('ts-checker')
-          // https://github.com/TypeStrong/fork-ts-checker-webpack-plugin#options
-          .use(ForkTsCheckerWebpackPlugin, [{ eslint: true, vue: true }]);
+      extendWebpack (cfg) {
+        cfg.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/,
+          options: {
+            formatter: require('eslint').CLIEngine.getFormatter('stylish')
+          }
+        })
       }
     },
 
@@ -135,9 +104,7 @@ module.exports = function(/* ctx */) {
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         background_color: '#ffffff',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         theme_color: '#027be3',
         icons: [
           {
@@ -172,22 +139,18 @@ module.exports = function(/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      id: 'org.cordova.quasar.app',
+      id: 'org.cordova.quasar.app'
     },
+
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-        hideSplashscreen: true
+      hideSplashscreen: true
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
       bundler: 'packager', // 'packager' or 'builder'
-
-      extendWebpack(/* cfg */) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
-      },
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
@@ -204,7 +167,7 @@ module.exports = function(/* ctx */) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-        
+
         appId: 'quasar-typescript-starter'
       },
 

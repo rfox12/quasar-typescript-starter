@@ -4,8 +4,8 @@
   </div>
 </template>
 
-<script script="ts">
+<script>
 export default {
-  name: 'App'
+  name: "App"
 };
 </script>
