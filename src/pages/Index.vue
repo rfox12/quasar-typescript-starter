@@ -14,12 +14,13 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import CompositionComponent from '../quasar-shims/component-styles/CompositionComponent.vue';
 import ClassComponent from '../quasar-shims/component-styles/ClassComponent.vue';
 import ObjectComponent from '../quasar-shims/component-styles/ObjectComponent.vue';
 import { Todo, Meta } from '../quasar-shims/component-styles/models';
 
-export default {
+export default Vue.extend({
   name: 'PageIndex',
   components: {
     CompositionComponent,
@@ -56,5 +57,5 @@ export default {
 
     return { todos, meta };
   }
-};
+});
 </script>
